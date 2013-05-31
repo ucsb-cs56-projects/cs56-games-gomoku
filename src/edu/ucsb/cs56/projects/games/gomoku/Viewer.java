@@ -4,8 +4,18 @@ import javax.swing.JFrame;
 import java.util.TimerTask;
 import java.util.Timer;
 
+/**
+ * viewer for the Gomoku game
+ * 
+ * edited by Eric Huang for project 2 Spring 2013, CS56
+ */
+
 public class Viewer
 {
+	/**
+	 * main class for the gomoku game
+	 * creates instance of the program, set up the board
+	 */
 	public static void main(String args[]){
 		
 		//	Create a timer.

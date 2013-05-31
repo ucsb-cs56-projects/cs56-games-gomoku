@@ -17,7 +17,7 @@
   <property name="projectName" value="${course}_${quarter}" />
   
   <property name="projectPath" 
-	value="edu/ucsb/${course}/projects/games" />
+	value="edu/ucsb/${course}/projects/games/gomoku" />
   
   <property name="javadocDest" value="${webRoot}/${projectPath}/javadoc" />
   <property name="javadocURL" value="${webBaseUrl}/${projectPath}/javadoc" />
@@ -56,22 +56,6 @@
 		<delete dir="download" quiet="true" />
     -->
     <delete dir="temp" quiet="true" />
-  </target>
-
-  <target name="test" depends="compile" 
-	description="run the tests, if there's any">
-
-   <junit haltonerror="no" haltonfailure="no">
-       <classpath refid="project.class.path" />
-
-       <batchtest fork="yes">
-          <fileset dir="src">
-            <!-- this will pick up every class with a name ending in Test -->
-            <include name="*Test.java"/>
-          </fileset>
-       </batchtest>
-       <formatter type="plain" usefile="false" /> 
-   </junit>
   </target>
   
  <target name="javadoc" depends="compile" description="upload javadoc"> 

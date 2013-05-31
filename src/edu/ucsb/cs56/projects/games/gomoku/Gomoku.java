@@ -16,8 +16,15 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
-public class Gomoku extends JPanel{
+/**
+   * Gomoku class that display a board and allow two players to play
+   * against each other
+   * Edited by Eric Huang for project 02, Spring 2013
+   
+   @version CS56, Sprint 2013
+*/
+public class Gomoku extends JPanel implements MouseListener
+{
 	
 	//General variables, such as screen size etc.
 	private Rectangle screen;	
@@ -36,6 +43,11 @@ public class Gomoku extends JPanel{
 	private final Color player2Color = new Color(0,0,200);
 	private final Color emptyColor = new Color(200,200,200);
 	
+	
+	/** 
+	 * constructor that creates a board, set the grid empty, set
+	 * the initial color
+	 */
 	public Gomoku(){
 		
 		super();
@@ -58,11 +70,14 @@ public class Gomoku extends JPanel{
 		
 		//Game
 		currentColor = 1;
-
+		
 		//Add listeners that keep track of the mouse 
 		addMouseListener(this);
 	}
 	
+	/** 
+	 * repaint the board
+	 */
 	class gomokuTimerTask extends TimerTask{ 
 		//	Main loop, done every iteration.
 		public void run(){
@@ -72,35 +87,34 @@ public class Gomoku extends JPanel{
 		}
 	}
 	
-	public void paintComponent(Graphics g)
-	{
+	/** 
+	 * the method to set the color of each grid and then switches player
+	 */
+	public void paintComponent(Graphics g){
 		
-		
-		for(int x = 0;x<gomo.getBoardSize().x;x++)
-		{
-			for(int y = 0; y<gomo.getBoardSize().y;y++)
-			{
-				if(gomo.getGrid(x,y) == 1)
-				{
-					g.setColor(gomo.getPlayer1Color());
-				}
-				else if(gomo.getGrid(x,y)== 2)
-				{
-					g.setColor(gomo.getPlayer2Color());
-				}
-				else
-				{
-					g.setColor(gomo.getEmptyColor());
-				}
+		for(int x = 0;x<boardSize.x;x++){
+			for(int y = 0; y<boardSize.y;y++){
 				
+				if(grid[x][y] == 1){
+					g.setColor(player1Color);
+				}else if(grid[x][y]== 2){
+					g.setColor(player2Color);
+				}else{
+					g.setColor(emptyColor);
+				}
 				g.fillOval(x*tileSize, y*tileSize, tileSize, tileSize);
 			}
 		}
 	}
 	
+	/**
+	 * listener for mouse and what to do when mouse clicked on one of 
+	 * the grid
+	 */
 	//	All functions need to be written (even if they are empty) in order to comply with the MouseListener interface
 	public void mouseClicked(MouseEvent mouse){
 		grid[mouse.getX()/tileSize][mouse.getY()/tileSize] = currentColor;
+		
 		//Switch player
 		if(currentColor == 1){
 			currentColor = 2;
@@ -108,59 +122,42 @@ public class Gomoku extends JPanel{
 			currentColor = 1;
 		}
     }
+    
+    /** empty for now */
 	public void mouseEntered(MouseEvent mouse){ 
 	}   
+	/** empty for now */
     public void mouseExited(MouseEvent mouse){
     }
+    /** empty for now */
     public void mousePressed(MouseEvent mouse){
     }
+    /** empty for now */
     public void mouseReleased(MouseEvent mouse){ 
     }
+    /** empty for now */
     public void mouseDragged(MouseEvent mouse){	
     }
+    /** empty for now */
     public void mouseMoved(MouseEvent mouse){
-    }
+    }	
 
-	public Point getBoardSize()
-	{
-		return this.boardSize;
-	}
 	
-	public int getGrid(int x, int y)
-	{
-		return this.grid[x][y];
-	}
-	
-	public int setGrid(int x, int y)
-	{
-		grid[x][y]
-	}
-	
-	public Color getPlayer1Color()
-	{
-		return this.player1Color;
-	}
-
-	public Color getPlayer2Color()
-	{
-		return this.player2Color;
-	}
-	
-	public Color getEmptyColor()
-	{
-		return this.emptyColor;
-	}
-	
-	public int getTileSize()
-	{
-		return this.tileSize;
-	}
-	
+	/** 
+	 * getter for the width of the screen
+	 * get the width of the screen and cast it to integer
+	 * @return int
+	 */
 	public int getScreenWidth()
 	{
 		return (int)(screen.getWidth());
 	}
 	
+	/** 
+	 * getter for the width of the screen
+	 * get the width of the screen and cast it to integer
+	 * @return int
+	 */
 	public int getScreenHeight()
 	{
 		return (int)(this.screen.getHeight());
