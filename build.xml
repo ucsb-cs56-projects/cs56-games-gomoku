@@ -3,7 +3,7 @@
 
   <!-- 
   build.xml
-  name: Eric Huang for CS56, S12 
+  name: Eric Huang for CS56, S13
   -->
 
   <property environment="env"/> <!-- load the environment variables --> 
