@@ -107,19 +107,19 @@ public class Gomoku extends JPanel implements MouseListener
 		}
 	}
 	
-	/**
-	 * listener for mouse and what to do when mouse clicked on one of 
-	 * the grid
-	 */
-	//	All functions need to be written (even if they are empty) in order to comply with the MouseListener interface
+	//	All functions need to be written (even if they are empty) 
+	//  in order to comply with the MouseListener interface
 	public void mouseClicked(MouseEvent mouse){
-		grid[mouse.getX()/tileSize][mouse.getY()/tileSize] = currentColor;
+		Controller c = new Controller(this);
+		c.coordinate(mouse);
+		
+		setGrid(c.getXCoord(),c.getYCoord() , getCurrentColor());
 		
 		//Switch player
-		if(currentColor == 1){
-			currentColor = 2;
+		if(getCurrentColor() == 1){
+			setCurrentColor(2);
 		}else{
-			currentColor = 1;
+			setCurrentColor(1);
 		}
     }
     
@@ -141,7 +141,45 @@ public class Gomoku extends JPanel implements MouseListener
     /** empty for now */
     public void mouseMoved(MouseEvent mouse){
     }	
+	
+	/** 
+	 * getter for the currentColor
+	 * @return the number that represent the color
+	 */
+	public int getCurrentColor()
+	{
+		return currentColor;
+	}
+	
+	/**
+	 * setter for currentCollar
+	 * @param currentColor the new color to replace what is in the grid
+	 */
+	public void setCurrentColor(int currentColor)
+	{
+		this.currentColor = currentColor;
+	}
 
+	/**
+	 * setter for the color in the grid
+	 * @param xCoord the x coordinate
+	 * @param yCoord the y coordinate
+	 * @param newColor the new color desired
+	 */
+	public void setGrid(int xCoord, int yCoord, int newColor)
+	{
+		grid[xCoord][yCoord] = newColor;
+	}
+	
+	/** 
+	 * getter for tileSize
+	 * @return the size of the tile
+	 */
+	public int getTileSize() 
+	{
+		return this.tileSize; 
+	}
+	
 	
 	/** 
 	 * getter for the width of the screen
