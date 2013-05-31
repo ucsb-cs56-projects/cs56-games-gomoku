@@ -1,3 +1,5 @@
+package edu.ucsb.cs56.projects.games.gomoku;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.List;
@@ -15,7 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class Gomoku extends JPanel implements MouseListener{
+public class Gomoku extends JPanel{
 	
 	//General variables, such as screen size etc.
 	private Rectangle screen;	
@@ -48,9 +50,9 @@ public class Gomoku extends JPanel implements MouseListener{
 			}
 		}
 		tileSize = 20;
-		int screenHeigth = boardSize.y*tileSize;
+		int screenHeight = boardSize.y*tileSize;
 		int screenWidth = boardSize.x*tileSize;
-		screen = new Rectangle(0, 0, screenWidth, screenHeigth);
+		screen = new Rectangle(0, 0, screenWidth, screenHeight);
 		frame = new JFrame("Gomoku");
 		random = new Random();
 		
@@ -70,18 +72,27 @@ public class Gomoku extends JPanel implements MouseListener{
 		}
 	}
 	
-	public void paintComponent(Graphics g){
+	public void paintComponent(Graphics g)
+	{
 		
-		for(int x = 0;x<boardSize.x;x++){
-			for(int y = 0; y<boardSize.y;y++){
-				
-				if(grid[x][y] == 1){
-					g.setColor(player1Color);
-				}else if(grid[x][y]== 2){
-					g.setColor(player2Color);
-				}else{
-					g.setColor(emptyColor);
+		
+		for(int x = 0;x<gomo.getBoardSize().x;x++)
+		{
+			for(int y = 0; y<gomo.getBoardSize().y;y++)
+			{
+				if(gomo.getGrid(x,y) == 1)
+				{
+					g.setColor(gomo.getPlayer1Color());
 				}
+				else if(gomo.getGrid(x,y)== 2)
+				{
+					g.setColor(gomo.getPlayer2Color());
+				}
+				else
+				{
+					g.setColor(gomo.getEmptyColor());
+				}
+				
 				g.fillOval(x*tileSize, y*tileSize, tileSize, tileSize);
 			}
 		}
@@ -109,24 +120,49 @@ public class Gomoku extends JPanel implements MouseListener{
     }
     public void mouseMoved(MouseEvent mouse){
     }
-    
-	public static void main(String args[]){
-		//	Create a timer.
-		java.util.Timer mainProgramTimer = new java.util.Timer();
-		//	Create a new instance of the program
-		Gomoku panel = new Gomoku();
-		
-		// 	Set up the settings of our JFrame
-		//	Close program if window is closed
-	    panel.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    //	Set size of window
-	    panel.frame.setSize(panel.screen.width, panel.screen.height);
-	    //	Things should happen in the panel
-	    panel.frame.setContentPane(panel); 
-	    //	Make window visible
-	    panel.frame.setVisible(true);
-	    
-		//	Do this regularly
-	    mainProgramTimer.schedule(panel.gomokuTask, 0, 20);
+
+	public Point getBoardSize()
+	{
+		return this.boardSize;
+	}
+	
+	public int getGrid(int x, int y)
+	{
+		return this.grid[x][y];
+	}
+	
+	public int setGrid(int x, int y)
+	{
+		grid[x][y]
+	}
+	
+	public Color getPlayer1Color()
+	{
+		return this.player1Color;
+	}
+
+	public Color getPlayer2Color()
+	{
+		return this.player2Color;
+	}
+	
+	public Color getEmptyColor()
+	{
+		return this.emptyColor;
+	}
+	
+	public int getTileSize()
+	{
+		return this.tileSize;
+	}
+	
+	public int getScreenWidth()
+	{
+		return (int)(screen.getWidth());
+	}
+	
+	public int getScreenHeight()
+	{
+		return (int)(this.screen.getHeight());
 	}
 }
