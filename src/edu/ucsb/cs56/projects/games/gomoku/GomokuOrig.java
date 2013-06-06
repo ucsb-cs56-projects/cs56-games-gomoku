@@ -1,3 +1,5 @@
+package edu.ucsb.cs56.projects.games.gomoku;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.List;
@@ -24,7 +26,7 @@ import javax.swing.JPanel;
  *
  */
 
-public class Gomoku extends JPanel implements MouseListener{
+public class GomokuOrig extends JPanel implements MouseListener{
 	
 	//General variables, such as screen size etc.
 	private Rectangle screen;	
@@ -47,7 +49,7 @@ public class Gomoku extends JPanel implements MouseListener{
 	 * Constructs and starts a game of Gomoku
 	 */
 	
-	public Gomoku(){
+	public GomokuOrig(){
 		
 		super();
 		
@@ -58,7 +60,7 @@ public class Gomoku extends JPanel implements MouseListener{
 		int screenHeigth = boardSize.y*tileSize;
 		int screenWidth = boardSize.x*tileSize;
 		screen = new Rectangle(0, 0, screenWidth, screenHeigth);
-		frame = new JFrame("Gomoku");
+		frame = new JFrame("GomokuOrig");
 		random = new Random();
 		
 		//Game
@@ -333,7 +335,7 @@ public class Gomoku extends JPanel implements MouseListener{
 		//	Create a timer.
 		java.util.Timer mainProgramTimer = new java.util.Timer();
 		//	Create a new instance of the program
-		Gomoku panel = new Gomoku();
+		GomokuOrig panel = new GomokuOrig();
 		
 		// 	Set up the settings of our JFrame
 		//	Close program if window is closed

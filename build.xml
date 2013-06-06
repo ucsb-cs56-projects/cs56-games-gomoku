@@ -13,6 +13,7 @@
   <property name="course" value="cs56" />
   <property name="quarter" value="S13" />
   <property name="mainClass" value="edu.ucsb.cs56.projects.games.gomoku.Viewer" />
+  <property name="origMainClass" value="edu.ucsb.cs56.projects.games.gomoku.GomokuOrig" />
   
   <property name="projectName" value="${course}_${quarter}" />
   
@@ -45,6 +46,13 @@
       fork="true" > 
     </java>
   </target>
+
+  <target name="runorig" depends="compile" description="run the code">
+    <java classname="${origMainClass}" classpath="build" 
+      fork="true" > 
+    </java>
+  </target>
+
 
   <target name="clean" description="clean up unnecessary directory">
     <delete failonerror="false" verbose="true">
