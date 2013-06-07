@@ -39,9 +39,9 @@ public class Gomoku extends JPanel implements MouseListener
 	private int[][] grid;
 	
 	//Colors
-	private final Color player1Color = new Color(0,200,0);
-	private final Color player2Color = new Color(0,0,200);
-	private final Color emptyColor = new Color(200,200,200);
+	private Color player1Color = new Color(0,200,0);
+	private Color player2Color = new Color(0,0,200);
+	private Color emptyColor = new Color(200,200,200);
 	
 	
 	/** 
@@ -81,12 +81,192 @@ public class Gomoku extends JPanel implements MouseListener
 	class gomokuTimerTask extends TimerTask{ 
 		//	Main loop, done every iteration.
 		public void run(){
-			
+			int win = checkForWin();
+			if(win!=0){
+				System.out.println("Player "+win+" has won");
+				if(win == 1&&random.nextInt(5)==1){
+					player1Color = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+				}
+				if(win == 2&&random.nextInt(5)==1){
+					player2Color = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+				}
+			}
 			//Repaint
 			frame.repaint();
 		}
 	}
+	/**
+	 * Checks if someone has won
+	 * @return is 0 if nobody won, or the player number if someone won
+	 */
 	
+	private int checkForWin(){
+		int win = 0;
+		win = checkHorizontalWin(grid);
+		if(win!=0){
+			return win;
+		}
+		win = checkVerticalWin(grid);
+		if(win!=0){
+			return win;
+		}
+		win = checkDownwardsDiagonals(grid);
+		if(win!=0){
+			return win;
+		}
+		win = checkUpwardsDiagonals(grid);
+		if(win!=0){
+			return win;
+		}
+		return 0;
+	}
+/**
+	 * Checks if someone has won by placing 5 stones in a row diagonally upwards from left to right
+	 * @param the board to check for a winning player
+	 * @return is 0 if nobody won, or the player number if someone won
+	 */
+	private int checkUpwardsDiagonals(int[][] boardToCheck){
+		return checkDownwardsDiagonals(flipBoardVertically(boardToCheck));
+		
+	}
+
+/**
+	 * Flips the board vertically (mirrors it) 
+	 * @param the board that shall be flipped
+	 * @return flipped board
+	 */
+	private int[][] flipBoardVertically(int[][] boardToCheck){
+		int[][] boardToReturn = new int[boardToCheck.length][boardToCheck[0].length];
+		for(int x = 0;x<boardToCheck.length;x++){
+			for(int y = 0;y<boardToCheck[0].length;y++){
+				boardToReturn[x][y] = boardToCheck[x][boardToCheck[0].length-1-y];
+			}
+		}
+		return boardToReturn;
+	}
+
+/**
+	 * Checks if someone has won by placing 5 stones in a row diagonally downwards from left to right
+	 * @param the board to check for a winning player
+	 * @return is 0 if nobody won, or the player number if someone won
+	 */
+	private int checkDownwardsDiagonals(int[][] boardToCheck){
+		//First check diagonally from left to right downwards
+		//Middle and lower diagonals
+		int win = checkLowerDownwardsDiagonals(boardToCheck);
+		if(win!=0){
+			return win;
+		}
+		//Check upper diagonals
+		win = checkLowerDownwardsDiagonals(flipBoardDiagonally(boardToCheck));
+		if(win!=0){
+			return win;
+		}
+		return 0;
+	}
+
+/**
+	 * Checks if someone has won by placing 5 stones in a row diagonally downwards
+	 * from left to right in any of the lower diagonals (below the one that starts
+	 * at (0,0)).
+	 * @param the board to check for a winning player
+	 * @return is 0 if nobody won, or the player number if someone won
+	 */
+	private int checkLowerDownwardsDiagonals(int[][] boardToCheck){
+		//First check diagonally from left to right downwards
+		//Middle and lower diagonals
+		for(int diagonalNo = 0;diagonalNo<boardToCheck[0].length;diagonalNo++){
+			int y = diagonalNo;
+			int x = 0;
+			int maxInARow = 0;
+			int lastColor = 0;
+			while(x<boardToCheck.length&&y<boardToCheck[0].length){
+				if(boardToCheck[x][y]==lastColor&&lastColor!=0){
+					//Same as last color, and not empty
+					maxInARow++;
+				}else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
+					//Not same as last color, and not empty
+					maxInARow = 1;
+				}else{
+					//Reset
+					maxInARow = 0;
+				}
+				//Check for 5 in a row
+				if(maxInARow >= 5){
+					return lastColor;
+				}
+				//Update lastcolor
+				lastColor = boardToCheck[x][y];
+				
+				x++;
+				y++;
+			}
+			//Reset after each diagonal
+			maxInARow = 0;
+			lastColor = 0;
+		}
+		return 0;
+	}
+
+	/**
+	 * Checks if someone has won by placing 5 stones in a horizontal row
+	 * @param the board to check for a winning player
+	 * @return is 0 if nobody won, or the player number if someone won
+	 */
+	private int checkHorizontalWin(int[][] boardToCheck){
+		//Horisontal
+		int lastColor = 0;
+		int maxInARow = 0;
+		for(int y = 0;y<boardToCheck[0].length;y++){
+			for(int x = 0;x<boardToCheck.length;x++){
+				if(boardToCheck[x][y]==lastColor&&lastColor!=0){
+					//Same as last color, and not empty
+					maxInARow++;
+				}else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
+					//Not same as last color, and not empty
+					maxInARow = 1;
+				}else{
+					//Reset
+					maxInARow = 0;
+				}
+				//Check for 5 in a row
+				if(maxInARow >= 5){
+					return lastColor;
+				}
+				//Update lastcolor
+				lastColor = boardToCheck[x][y];
+			}
+			//Reset after each row
+			maxInARow = 0;
+			lastColor = 0;
+		}
+		return 0;
+	}
+
+/**
+	 * Checks if someone has won by placing 5 stones in a vertical row
+	 * @param the board to check for a winning player
+	 * @return is 0 if nobody won, or the player number if someone won
+	 */
+	private int checkVerticalWin(int[][] boardToTest){
+		return checkHorizontalWin(flipBoardDiagonally(boardToTest));
+	}
+	
+	/**
+	 * Flips a board diagonally (i.e. (1,2) becomes (2,1))
+	 * @param the board to be flipped
+	 * @return flipped board
+	 */
+	private int[][] flipBoardDiagonally(int[][] boardToFlip){
+		int[][] boardToReturn = new int[boardToFlip[0].length][boardToFlip.length];
+		for(int x=0;x<boardToFlip.length;x++){
+			for(int y=0;y<boardToFlip[0].length;y++){
+				boardToReturn[y][x] = boardToFlip[x][y];
+			}
+		}
+		return boardToReturn;
+	}
+
 	/** 
 	 * the method to set the color of each grid and then switches player
 	 */
