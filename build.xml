@@ -4,14 +4,15 @@
   <!-- 
   build.xml
   name: Eric Huang for CS56, S13
+  edited by: Madhu Kannan, Colin Garrett for CS56, F16
   -->
 
   <property environment="env"/> <!-- load the environment variables --> 
   <property name="webRoot" value="${env.HOME}/public_html/cs56" />
   <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}/cs56" />
 
-  <property name="course" value="cs56" />
-  <property name="quarter" value="S13" />
+  <property name="course" value="CS56" />
+  <property name="quarter" value="F16" />
   <property name="mainClass" value="edu.ucsb.cs56.projects.games.gomoku.Viewer" />
   <property name="origMainClass" value="edu.ucsb.cs56.projects.games.gomoku.GomokuOrig" />
   
@@ -22,7 +23,7 @@
   
   <property name="javadocDest" value="${webRoot}/${projectPath}/javadoc" />
   <property name="javadocURL" value="${webBaseUrl}/${projectPath}/javadoc" />
-  <property name="javadocLink" value="http://java.sun.com/javase/7/docs/api/" />
+  <property name="javadocLink" value="https://docs.oracle.com/javase/8/docs/api/" />
   
   <path id="project.class.path">
 	<pathelement location="build"/>
