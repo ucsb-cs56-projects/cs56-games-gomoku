@@ -1,5 +1,9 @@
 package edu.ucsb.cs56.projects.games.gomoku;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.List;
@@ -12,6 +16,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -37,7 +42,9 @@ public class Gomoku extends JPanel implements MouseListener
 	//Game
 	private int currentColor;	//Either 1 or 2
 	private int[][] grid;
-	
+	public Timer mainProgramTimer;
+	public JFrame newFrame;	
+
 	//Colors
 	private Color player1Color = new Color(0,200,0);
 	private Color player2Color = new Color(0,0,200);
@@ -54,7 +61,7 @@ public class Gomoku extends JPanel implements MouseListener
 		
 		//	General variables
 		gomokuTask = new gomokuTimerTask();
-		boardSize = new Point(70,40);
+		boardSize = new Point(19,19);
 		grid = new int[boardSize.x][boardSize.y];
 		for(int x = 0; x<boardSize.x;x++){
 			for(int y = 0;y<boardSize.y;y++){
@@ -62,17 +69,18 @@ public class Gomoku extends JPanel implements MouseListener
 			}
 		}
 		tileSize = 20;
-		int screenHeight = boardSize.y*tileSize;
+		int screenHeight = boardSize.y*tileSize + tileSize;
 		int screenWidth = boardSize.x*tileSize;
 		screen = new Rectangle(0, 0, screenWidth, screenHeight);
 		frame = new JFrame("Gomoku");
 		random = new Random();
 		
 		//Game
-		currentColor = 1;
-		
+		currentColor = 1;		
+
 		//Add listeners that keep track of the mouse 
 		addMouseListener(this);
+		newFrame = new JFrame();
 	}
 	
 	/** 
@@ -83,23 +91,59 @@ public class Gomoku extends JPanel implements MouseListener
 		public void run(){
 			int win = checkForWin();
 			if(win!=0){
+				JLabel theWinner = new JLabel("something is wrong with the code");
 				System.out.println("Player "+win+" has won");
-				if(win == 1&&random.nextInt(5)==1){
-					player1Color = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+				if(win == 1){
+					theWinner = new JLabel("Congratulations, player one, you won!");;
 				}
-				if(win == 2&&random.nextInt(5)==1){
-					player2Color = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+				if(win == 2){
+					theWinner = new JLabel("Congratulations, player two, you won!");
 				}
+				JLabel text = new JLabel("Do you want to play again?");
+				JButton playAgainButton = new JButton("Yes");
+				playAgainButton.addActionListener(new PlayAgainListener());
+				JButton returnToTitleScreenButton = new JButton("No");
+			        returnToTitleScreenButton.addActionListener(new ReturnToTitleScreenListener());
+				JPanel content = new JPanel();
+			        content.add(theWinner);
+				content.add(text);
+				content.add(playAgainButton);
+				content.add(returnToTitleScreenButton);
+				newFrame.getContentPane().add(content);
+				newFrame.setSize(300, 300);
+				newFrame.setVisible(true);
+				cancel();
+				mainProgramTimer.cancel();
 			}
 			//Repaint
 			frame.repaint();
 		}
+
+		class ReturnToTitleScreenListener implements ActionListener {
+
+			public void actionPerformed(ActionEvent event) {
+				frame.dispose();
+				newFrame.dispose();
+			}
+
+		}
+
+		class PlayAgainListener extends GameScreenListener {
+
+			public void actionPerformed(ActionEvent event) {
+
+				frame.dispose();
+				newFrame.dispose();
+				super.actionPerformed(event);
+
+			}
+
+		}
+
 	}
-	/**
-	 * Checks if someone has won
-	 * @return is 0 if nobody won, or the player number if someone won
-	 */
-	
+
+
+
 	private int checkForWin(){
 		int win = 0;
 		win = checkHorizontalWin(grid);
