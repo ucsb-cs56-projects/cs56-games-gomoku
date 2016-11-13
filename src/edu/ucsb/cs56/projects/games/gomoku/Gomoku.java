@@ -235,23 +235,22 @@ public class Gomoku extends JPanel implements MouseListener
 					//Same as last color, and not empty
 					maxInARow++;
 				}else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
-				    if(maxInARow == 5){
+				    if(maxInARow == 5 && playStandard){
 					return lastColor;
 				    }
 				    //Not same as last color, and not empty
 					maxInARow = 1;
 				}else{
-				    if(maxInARow == 5){
+				    if(maxInARow == 5 && playStandard){
 					return lastColor;
 				    }
 					//Reset
 					maxInARow = 0;
 				}
 				//Check for 5 in a row
-				//if(maxInARow >= 5){
-				    //return lastColor;
-				    //potentialWinner = lastColor;
-				    //}
+				if(maxInARow >= 5 && !playStandard){
+				    return lastColor;
+				}
 				//Update lastcolor
 				lastColor = boardToCheck[x][y];
 				
@@ -284,24 +283,23 @@ public class Gomoku extends JPanel implements MouseListener
 					//Same as last color, and not empty
 					maxInARow++;
 				}else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
-				    if(maxInARow == 5){
+				    if(maxInARow == 5 && playStandard){
 					return lastColor;
 				    }
 				    //Not same as last color, and not empty
 					maxInARow = 1;
 				}else{
 
-				    if(maxInARow == 5){
+				    if(maxInARow == 5 && playStandard){
 					return lastColor;
 				    }
 					//Reset
 					maxInARow = 0;
 				}
 				//Check for 5 in a row
-				//if(maxInARow >= 5){
-				    //return lastColor;
-				// potentialWinner = lastColor;
-				//}
+				if(maxInARow >= 5 && !playStandard){
+				    return lastColor;
+				}
 				//Update lastcolor
 				lastColor = boardToCheck[x][y];
 			}

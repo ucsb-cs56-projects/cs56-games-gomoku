@@ -54,18 +54,19 @@ public class Viewer
 		//When clicked, this button takes user to instructions. 
 		JButton getInstructionsButton = new JButton("Instructions");
 		getInstructionsButton.addActionListener(new InstructionsListener());
-
+		//When clicked, this button takes user to settings.
+		JButton getSettingsButton = new JButton("Settings");
+		getSettingsButton.addActionListener(new SettingsScreenListener());
 			
 		JPanel panel = new JPanel();
 		panel.add(getGameButton);
 		panel.add(getInstructionsButton);
+		panel.add(getSettingsButton);
 		frame.getContentPane().add(BorderLayout.WEST, panel);
 		frame.getContentPane().add(BorderLayout.NORTH, title);
 		frame.setSize(300, 300);
 		frame.setVisible(true);
 	}
-
-}
 
 //inner class for actual game screen. All code in actionPerformed taken from Eric Huang's implementation.
 
@@ -81,6 +82,8 @@ class GameScreenListener implements ActionListener {
 		// 	Set up the settings of our JFrame
 
 		panel.mainProgramTimer = new Timer();
+
+		panel.playStandard = !setPlayFreestyle;
 
 	    //	Set size of window
 	    panel.frame.setSize(panel.getScreenWidth(), panel.getScreenHeight());
@@ -131,12 +134,14 @@ class InstructionsListener implements ActionListener {
 		frame.setSize(900, 900);
 		frame.setVisible(true);
 	}
+}
 
 class SettingsScreenListener implements ActionListener{
 
 	public void actionPerformed(ActionEvent event){
 
 		JFrame frame = new JFrame();
+		JPanel panel = new JPanel();
 
 		JCheckBox check = new JCheckBox("Check to change to Freestyle Gomoku. (Default is Standard.)");
 		check.addItemListener(new ItemListener() {
@@ -150,8 +155,13 @@ class SettingsScreenListener implements ActionListener{
 				}
 			}
 		}
+		);
 
-}
+		panel.add(check);
+		frame.getContentPane().add(panel);
+		frame.setSize(300,300);
+		frame.setVisible(true);
+	}
 
 
 }
