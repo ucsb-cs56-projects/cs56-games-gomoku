@@ -29,7 +29,7 @@ public class Viewer
 	//Edited F16: main now only contains home screen. Inner classes will contain game and end screens.
 	
 	JFrame frame;
-	public boolean setPlayFreestyle = false;
+	public static boolean setPlayFreestyle = false;
 
 
 	public static void main(String args[]){
@@ -54,14 +54,25 @@ public class Viewer
 		//When clicked, this button takes user to instructions. 
 		JButton getInstructionsButton = new JButton("Instructions");
 		getInstructionsButton.addActionListener(new InstructionsListener());
-		//When clicked, this button takes user to settings.
-		JButton getSettingsButton = new JButton("Settings");
-		getSettingsButton.addActionListener(new SettingsScreenListener());
-			
+		
+                JCheckBox check = new JCheckBox("Check to change to Freestyle Gomoku. (Default is Standard.)");
+                check.addItemListener(new ItemListener() {
+
+                        public void itemStateChanged(ItemEvent e){
+                                if(check.isSelected()){
+                                        setPlayFreestyle = true;
+                                }
+                                if(!check.isSelected()){
+                                        setPlayFreestyle = false;
+                                }
+                        }
+                }
+                );
+	
 		JPanel panel = new JPanel();
 		panel.add(getGameButton);
 		panel.add(getInstructionsButton);
-		panel.add(getSettingsButton);
+		panel.add(check);
 		frame.getContentPane().add(BorderLayout.WEST, panel);
 		frame.getContentPane().add(BorderLayout.NORTH, title);
 		frame.setSize(300, 300);
@@ -134,36 +145,6 @@ class InstructionsListener implements ActionListener {
 		frame.setSize(900, 900);
 		frame.setVisible(true);
 	}
-}
-
-class SettingsScreenListener implements ActionListener{
-
-	public void actionPerformed(ActionEvent event){
-
-		JFrame frame = new JFrame();
-		JPanel panel = new JPanel();
-
-		JCheckBox check = new JCheckBox("Check to change to Freestyle Gomoku. (Default is Standard.)");
-		check.addItemListener(new ItemListener() {
-
-			public void itemStateChanged(ItemEvent e){
-				if(check.isSelected()){
-					setPlayFreestyle = true;
-				}
-				if(!check.isSelected()){
-					setPlayFreestyle = false;
-				}
-			}
-		}
-		);
-
-		panel.add(check);
-		frame.getContentPane().add(panel);
-		frame.setSize(300,300);
-		frame.setVisible(true);
-	}
-
-
 }
 
 }
