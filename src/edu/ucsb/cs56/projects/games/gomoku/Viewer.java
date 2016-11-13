@@ -29,11 +29,14 @@ public class Viewer
 	//Edited F16: main now only contains home screen. Inner classes will contain game and end screens.
 	
 	JFrame frame;
+	public boolean setPlayFreestyle = false;
+
 
 	public static void main(String args[]){
 		Viewer gui = new Viewer();
 		gui.go();
 	}
+
 
 	public void go() {
 		frame = new JFrame();
@@ -129,5 +132,28 @@ class InstructionsListener implements ActionListener {
 		frame.setVisible(true);
 	}
 
+class SettingsScreenListener implements ActionListener{
+
+	public void actionPerformed(ActionEvent event){
+
+		JFrame frame = new JFrame();
+
+		JCheckBox check = new JCheckBox("Check to change to Freestyle Gomoku. (Default is Standard.)");
+		check.addItemListener(new ItemListener() {
+
+			public void itemStateChanged(ItemEvent e){
+				if(check.isSelected()){
+					setPlayFreestyle = true;
+				}
+				if(!check.isSelected()){
+					setPlayFreestyle = false;
+				}
+			}
+		}
+
+}
+
+
+}
 
 }
