@@ -71,11 +71,13 @@ class GameScreenListener implements ActionListener {
 	public void actionPerformed(ActionEvent event){
 
 		//	Create a timer.
-		Timer mainProgramTimer = new Timer();
+		//Timer mainProgramTimer = new Timer();
 		//	Create a new instance of the program
 		Gomoku panel = new Gomoku();
 		
 		// 	Set up the settings of our JFrame
+
+		panel.mainProgramTimer = new Timer();
 
 	    //	Set size of window
 	    panel.frame.setSize(panel.getScreenWidth(), panel.getScreenHeight());
@@ -93,7 +95,7 @@ class GameScreenListener implements ActionListener {
 	    panel.frame.setVisible(true);
 	    
 		//	Do this regularly
-	    mainProgramTimer.schedule(panel.gomokuTask, 0, 20);
+	    panel.mainProgramTimer.schedule(panel.gomokuTask, 0, 20);
 	}
 }
 
