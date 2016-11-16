@@ -48,7 +48,7 @@ public class Gomoku extends JPanel implements MouseListener
 	private int[][] grid;
 	public Timer mainProgramTimer;
 	public JFrame newFrame;	
-	public boolean playStandard = true; //Standard Gomoku requires exactly 5. Freestyle allows 5 or more.
+	public boolean playStandard = true; //Standard Gomoku requires exactly 5. Freestyle allows 5 or more.This variable is set from the home screen's check box, in the Viewer class. 
 
 	//Colors
 	private Color player1Color = new Color(0,200,0);
@@ -236,12 +236,14 @@ public class Gomoku extends JPanel implements MouseListener
 					maxInARow++;
 				}else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
 				    if(maxInARow == 5 && playStandard){
+					//Standard Gomoku, which requires EXACTLY five in a row.
 					return lastColor;
 				    }
 				    //Not same as last color, and not empty
 					maxInARow = 1;
 				}else{
 				    if(maxInARow == 5 && playStandard){
+					//Standard Gomoku, which requires EXACTLY five in a row.
 					return lastColor;
 				    }
 					//Reset
@@ -249,7 +251,8 @@ public class Gomoku extends JPanel implements MouseListener
 				}
 				//Check for 5 in a row
 				if(maxInARow >= 5 && !playStandard){
-				    return lastColor;
+				    	//Freestyle Gomoku, wich allows five or more in a row.
+					return lastColor;
 				}
 				//Update lastcolor
 				lastColor = boardToCheck[x][y];
@@ -257,10 +260,6 @@ public class Gomoku extends JPanel implements MouseListener
 				x++;
 				y++;
 			}
-			//if(maxInARow == 5){
-			//return potentialWinner;
-			//}
-			//Reset after each diagonal
 			maxInARow = 0;
 			lastColor = 0;
 		}
@@ -284,13 +283,15 @@ public class Gomoku extends JPanel implements MouseListener
 					maxInARow++;
 				}else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
 				    if(maxInARow == 5 && playStandard){
+					//Standard Gomoku, which requires EXACTLY five in a row.
 					return lastColor;
 				    }
-				    //Not same as last color, and not empty
+		       			//Not same as last color, and not empty.
 					maxInARow = 1;
 				}else{
 
 				    if(maxInARow == 5 && playStandard){
+					//Standard Gomoku, which requires EXACTLY five in a row.
 					return lastColor;
 				    }
 					//Reset
@@ -298,16 +299,12 @@ public class Gomoku extends JPanel implements MouseListener
 				}
 				//Check for 5 in a row
 				if(maxInARow >= 5 && !playStandard){
-				    return lastColor;
+				    	//Freestyle Gomoku, wich allows five or more in a row.
+					return lastColor;
 				}
 				//Update lastcolor
 				lastColor = boardToCheck[x][y];
 			}
-			//Check to see if exactly 5 in a row
-			//if(maxInARow == 5){
-			// return potentialWinner;
-			//}
-			//Reset after each row
 			maxInARow = 0;
 			lastColor = 0;
 		}

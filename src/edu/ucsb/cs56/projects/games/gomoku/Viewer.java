@@ -55,7 +55,7 @@ public class Viewer
 		JButton getInstructionsButton = new JButton("Instructions");
 		getInstructionsButton.addActionListener(new InstructionsListener());
 		
-                JCheckBox check = new JCheckBox("Check to change to Freestyle Gomoku. (Default is Standard.)");
+                JCheckBox check = new JCheckBox("Check to change to Freestyle Gomoku.");
                 check.addItemListener(new ItemListener() {
 
                         public void itemStateChanged(ItemEvent e){
@@ -68,14 +68,26 @@ public class Viewer
                         }
                 }
                 );
+
+		JLabel SettingsTitle = new JLabel("\n"+ "Settings:" + "\n");
 	
-		JPanel panel = new JPanel();
-		panel.add(getGameButton);
-		panel.add(getInstructionsButton);
-		panel.add(check);
-		frame.getContentPane().add(BorderLayout.WEST, panel);
+
+		JPanel OptionsPanel = new JPanel();
+		JPanel SettingsPanel = new JPanel();
+		
+		OptionsPanel.add(getGameButton);
+		OptionsPanel.add(getInstructionsButton);
+		
+		SettingsPanel.add(SettingsTitle);
+		SettingsPanel.add(check);
+		
+		OptionsPanel.setLayout(new BoxLayout(OptionsPanel, BoxLayout.Y_AXIS));
+		SettingsPanel.setLayout(new BoxLayout(SettingsPanel, BoxLayout.Y_AXIS));
+		
+		frame.getContentPane().add(BorderLayout.EAST, OptionsPanel);
 		frame.getContentPane().add(BorderLayout.NORTH, title);
-		frame.setSize(300, 300);
+		frame.getContentPane().add(BorderLayout.CENTER, SettingsPanel);
+		frame.setSize(600, 600);
 		frame.setVisible(true);
 	}
 
@@ -129,9 +141,15 @@ class InstructionsListener implements ActionListener {
 		JLabel instruct = new JLabel("Gomoku is a two-player strategy game.");
 		JLabel instructTwo = new JLabel(" Players alternate clicking an empty circle, to indicate placing a 'stone' of their color.");
 		JLabel instructThree = new JLabel(" The winner is the first player to get an unbroken row of five stones horizontally, vertically, or diagonally.");
+		JLabel instructStandard = new JLabel("Standard Gomoku requires exactly five in a row to win.");
+		JLabel instructFreestyle = new JLabel("Freestyle Gomoku allows five or more stones in a row to win.");
+		JLabel instructCheck = new JLabel("Defaul game is Standard. Change to Freestlye by checking the appropriate Settings box on the Home Screen.");
 		panel.add(instruct);
 		panel.add(instructTwo);
 		panel.add(instructThree);
+		panel.add(instructStandard);
+		panel.add(instructFreestyle);
+		panel.add(instructCheck);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		frame.getContentPane().add(BorderLayout.WEST, panel);
 		
