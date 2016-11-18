@@ -29,11 +29,14 @@ public class Viewer
 	//Edited F16: main now only contains home screen. Inner classes will contain game and end screens.
 	
 	JFrame frame;
+	public static boolean setPlayFreestyle = false;
+
 
 	public static void main(String args[]){
 		Viewer gui = new Viewer();
 		gui.go();
 	}
+
 
 	public void go() {
 		frame = new JFrame();
@@ -51,18 +54,42 @@ public class Viewer
 		//When clicked, this button takes user to instructions. 
 		JButton getInstructionsButton = new JButton("Instructions");
 		getInstructionsButton.addActionListener(new InstructionsListener());
+		
+                JCheckBox check = new JCheckBox("Check to change to Freestyle Gomoku.");
+                check.addItemListener(new ItemListener() {
 
-			
-		JPanel panel = new JPanel();
-		panel.add(getGameButton);
-		panel.add(getInstructionsButton);
-		frame.getContentPane().add(BorderLayout.WEST, panel);
+                        public void itemStateChanged(ItemEvent e){
+                                if(check.isSelected()){
+                                        setPlayFreestyle = true;
+                                }
+                                if(!check.isSelected()){
+                                        setPlayFreestyle = false;
+                                }
+                        }
+                }
+                );
+
+		JLabel SettingsTitle = new JLabel("\n"+ "Settings:" + "\n");
+	
+
+		JPanel OptionsPanel = new JPanel();
+		JPanel SettingsPanel = new JPanel();
+		
+		OptionsPanel.add(getGameButton);
+		OptionsPanel.add(getInstructionsButton);
+		
+		SettingsPanel.add(SettingsTitle);
+		SettingsPanel.add(check);
+		
+		OptionsPanel.setLayout(new BoxLayout(OptionsPanel, BoxLayout.Y_AXIS));
+		SettingsPanel.setLayout(new BoxLayout(SettingsPanel, BoxLayout.Y_AXIS));
+		
+		frame.getContentPane().add(BorderLayout.EAST, OptionsPanel);
 		frame.getContentPane().add(BorderLayout.NORTH, title);
-		frame.setSize(300, 300);
+		frame.getContentPane().add(BorderLayout.CENTER, SettingsPanel);
+		frame.setSize(600, 600);
 		frame.setVisible(true);
 	}
-
-}
 
 //inner class for actual game screen. All code in actionPerformed taken from Eric Huang's implementation.
 
@@ -78,6 +105,8 @@ class GameScreenListener implements ActionListener {
 		// 	Set up the settings of our JFrame
 
 		panel.mainProgramTimer = new Timer();
+
+		panel.playStandard = !setPlayFreestyle;
 
 	    //	Set size of window
 	    panel.frame.setSize(panel.getScreenWidth(), panel.getScreenHeight());
@@ -112,9 +141,15 @@ class InstructionsListener implements ActionListener {
 		JLabel instruct = new JLabel("Gomoku is a two-player strategy game.");
 		JLabel instructTwo = new JLabel(" Players alternate clicking an empty circle, to indicate placing a 'stone' of their color.");
 		JLabel instructThree = new JLabel(" The winner is the first player to get an unbroken row of five stones horizontally, vertically, or diagonally.");
+		JLabel instructStandard = new JLabel("Standard Gomoku requires exactly five in a row to win.");
+		JLabel instructFreestyle = new JLabel("Freestyle Gomoku allows five or more stones in a row to win.");
+		JLabel instructCheck = new JLabel("Defaul game is Standard. Change to Freestlye by checking the appropriate Settings box on the Home Screen.");
 		panel.add(instruct);
 		panel.add(instructTwo);
 		panel.add(instructThree);
+		panel.add(instructStandard);
+		panel.add(instructFreestyle);
+		panel.add(instructCheck);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		frame.getContentPane().add(BorderLayout.WEST, panel);
 		
@@ -128,6 +163,6 @@ class InstructionsListener implements ActionListener {
 		frame.setSize(900, 900);
 		frame.setVisible(true);
 	}
-
+}
 
 }
