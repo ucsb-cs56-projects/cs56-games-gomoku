@@ -174,7 +174,7 @@ public class Gomoku extends JPanel implements MouseListener
 	 * @param the board to check for a winning player
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
-	private int checkUpwardsDiagonals(int[][] boardToCheck){
+	public int checkUpwardsDiagonals(int[][] boardToCheck){
 		return checkDownwardsDiagonals(flipBoardVertically(boardToCheck));
 		
 	}
@@ -199,7 +199,7 @@ public class Gomoku extends JPanel implements MouseListener
 	 * @param the board to check for a winning player
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
-	private int checkDownwardsDiagonals(int[][] boardToCheck){
+	public int checkDownwardsDiagonals(int[][] boardToCheck){
 		//First check diagonally from left to right downwards
 		//Middle and lower diagonals
 		int win = checkLowerDownwardsDiagonals(boardToCheck);
@@ -221,7 +221,7 @@ public class Gomoku extends JPanel implements MouseListener
 	 * @param the board to check for a winning player
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
-	private int checkLowerDownwardsDiagonals(int[][] boardToCheck){
+	public int checkLowerDownwardsDiagonals(int[][] boardToCheck){
 		//First check diagonally from left to right downwards
 		//Middle and lower diagonals
 		for(int diagonalNo = 0;diagonalNo<boardToCheck[0].length;diagonalNo++){
@@ -316,7 +316,7 @@ public class Gomoku extends JPanel implements MouseListener
 	 * @param the board to check for a winning player
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
-	private int checkVerticalWin(int[][] boardToTest){
+	public int checkVerticalWin(int[][] boardToTest){
 		return checkHorizontalWin(flipBoardDiagonally(boardToTest));
 	}
 	
