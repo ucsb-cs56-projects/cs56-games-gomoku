@@ -45,7 +45,7 @@ public class Gomoku extends JPanel implements MouseListener
 	
 	//Game
 	private int currentColor;	//Either 1 or 2
-	private int[][] grid;
+	public int[][] grid;
 	public Timer mainProgramTimer;
 	public JFrame newFrame;	
 	public boolean playStandard = true; //Standard Gomoku requires exactly 5. Freestyle allows 5 or more.This variable is set from the home screen's check box, in the Viewer class. 
@@ -271,7 +271,7 @@ public class Gomoku extends JPanel implements MouseListener
 	 * @param the board to check for a winning player
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
-	private int checkHorizontalWin(int[][] boardToCheck){
+	public int checkHorizontalWin(int[][] boardToCheck){
 		//Horisontal
 		int lastColor = 0;
 		int maxInARow = 0;

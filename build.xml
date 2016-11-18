@@ -96,6 +96,18 @@
    <echo>Javadoc deployed to ${javadocURL}</echo> 
  
  </target>
+
+ <target name="test" depends="compile" description="run JUnit tests">
+   <junit haltonerror="no" haltonfailure="no">
+     <classpath refid="project.class.path"/>
+     <batchtest fork="yes">
+       <fileset dir="src">
+	 <include name="**/*Test.java"/>
+       </fileset>
+     </batchtest>
+     <formatter type="brief" usefile="false" />
+   </junit>
+ </target>
  
  
 </project>
