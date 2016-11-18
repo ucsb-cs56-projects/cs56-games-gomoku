@@ -66,36 +66,70 @@
     -->
     <delete dir="temp" quiet="true" />
   </target>
+
+
+<property name="javadoc_absolute_path" location="javadoc"/>
+  <property name="public_javadoc_absolute_path" location="javadoc"/>
+
+  <target name="javadoc" depends="compile" description="generate javadoc">
+    <delete>
+      <fileset dir="javadoc" />
+	   </delete>
+	    <javadoc destdir="javadoc">
+      <fileset dir="src" >
+	<include name="**/*.java"/>
+      </fileset>
+      <classpath refid="project.class.path2" />
+      <link href="https://docs.oracle.com/javase/8/docs/api/" />          
+    </javadoc>
+    <echo>
+      javadoc written to file://${javadoc_absolute_path}/index.html
+      copying to ${public_javadoc_absolute_path}/index.html
+    </echo>
+        <delete quiet="true">
+      <fileset dir="${public_javadoc_absolute_path}" />    
+    </delete>
+    <mkdir dir="${public_javadoc_absolute_path}" />
+    <copy todir="${public_javadoc_absolute_path}">
+      <fileset dir="javadoc" />      
+    </copy>
+    <echo>                                                                      
+      javadoc copied to ${public_javadoc_absolute_path}/index.html
+      TO PUBLISH: cd into that repo, then git add javadoc;
+        git commit -m "update javadoc"; git push origin gh-pages
+    </echo>
+  </target>
   
- <target name="javadoc" depends="compile" description="upload javadoc"> 
+
+<!-- <target name="javadoc" depends="compile" description="upload javadoc"> 
  
    <delete dir="javadoc" quiet="true" /> 
    <javadoc  destdir="javadoc" author="true" version="true" use="true" >  
       <fileset dir="src" includes="**/*.java"/>  
       <classpath refid="project.class.path2" />
       <link href="${javadocLink}" />
-   </javadoc>
+   </javadoc>-->
 
    <!-- delete the old javadoc -->
-   <delete quiet="true" dir="${javadocDest}" /> 
+   <!--<delete quiet="true" dir="${javadocDest}" />-->
 
    <!-- copy everything you just made to the javadoc destination,
     and then make it readable --> 
  
-   <copy todir="${javadocDest}" > 
+  <!-- <copy todir="${javadocDest}" > 
      <fileset dir="javadoc"/> 
-   </copy> 
+   </copy> -->
  
    <!-- Note: this only does the chmod command on the 
         javadoc subdirectory and its contents.  You MIGHT have to
 	MANUALLY do the chmod on the parent directories.  However,
 	you should only need to do that once. --> 
  
-   <chmod dir="${javadocDest}" perm="755"  type="dir" includes="**" /> 
+ <!-- <chmod dir="${javadocDest}" perm="755"  type="dir" includes="**" /> 
    <chmod dir="${javadocDest}" perm="755"  type="file" includes="**/*" /> 
-   <echo>Javadoc deployed to ${javadocURL}</echo> 
+   <echo>Javadoc deployed to ${javadocURL}</echo>-->
  
- </target>
+<!--</target>-->
 
  <target name="test" depends="compile" description="run JUnit tests">
    <junit haltonerror="no" haltonfailure="no">
