@@ -54,7 +54,8 @@ public class Gomoku extends JPanel implements MouseListener
 	private Color player1Color = new Color(0,200,0);
 	private Color player2Color = new Color(0,0,200);
 	private Color emptyColor = new Color(200,200,200);
-	
+private JLabel currentPlayer = new JLabel("Player one, it is your turn.");	
+private JPanel thePane = new JPanel();
 	
 	/** 
 	 * constructor that creates a board, set the grid empty, set
@@ -75,9 +76,11 @@ public class Gomoku extends JPanel implements MouseListener
 		}
 		tileSize = 20;
 		int screenHeight = boardSize.y*tileSize + tileSize;
-		int screenWidth = boardSize.x*tileSize;
+		int screenWidth = boardSize.x*tileSize + 500;
 		screen = new Rectangle(0, 0, screenWidth, screenHeight);
 		frame = new JFrame("Gomoku");
+thePane.add(currentPlayer);
+frame.getContentPane().add(thePane);
 		random = new Random();
 		
 		//Game
@@ -353,6 +356,14 @@ public class Gomoku extends JPanel implements MouseListener
 				g.fillOval(x*tileSize, y*tileSize, tileSize, tileSize);
 			}
 		}
+		if(getCurrentColor() == 1) {
+			g.setColor(player1Color);
+			g.drawString("Player one, it is your turn.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2 );
+		}
+		else if (getCurrentColor() == 2) {
+			g.setColor(player2Color);
+			g.drawString("Player two, it is your turn.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);
+		}
 	}
 	
 	//	All functions need to be written (even if they are empty) 
@@ -368,9 +379,9 @@ public class Gomoku extends JPanel implements MouseListener
 			setCurrentColor(2);
 		}else{
 			setCurrentColor(1);
-		}
-    }
-    
+	}   
+}
+ 
     /** empty for now */
 	public void mouseEntered(MouseEvent mouse){ 
 	}   
