@@ -54,8 +54,6 @@ public class Gomoku extends JPanel implements MouseListener
 	private Color player1Color = new Color(0,200,0);
 	private Color player2Color = new Color(0,0,200);
 	private Color emptyColor = new Color(200,200,200);
-private JLabel currentPlayer = new JLabel("Player one, it is your turn.");	
-private JPanel thePane = new JPanel();
 	
 	/** 
 	 * constructor that creates a board, set the grid empty, set
@@ -79,8 +77,6 @@ private JPanel thePane = new JPanel();
 		int screenWidth = boardSize.x*tileSize + 500;
 		screen = new Rectangle(0, 0, screenWidth, screenHeight);
 		frame = new JFrame("Gomoku");
-thePane.add(currentPlayer);
-frame.getContentPane().add(thePane);
 		random = new Random();
 		
 		//Game
@@ -342,27 +338,28 @@ frame.getContentPane().add(thePane);
 	 * the method to set the color of each grid and then switches player
 	 */
 	public void paintComponent(Graphics g){
-		
+		Graphics2D g2 = (Graphics2D) g;
 		for(int x = 0;x<boardSize.x;x++){
 			for(int y = 0; y<boardSize.y;y++){
-				
 				if(grid[x][y] == 1){
-					g.setColor(player1Color);
+					g2.setColor(player1Color);
 				}else if(grid[x][y]== 2){
-					g.setColor(player2Color);
+					g2.setColor(player2Color);
 				}else{
-					g.setColor(emptyColor);
+					g2.setColor(emptyColor);
 				}
-				g.fillOval(x*tileSize, y*tileSize, tileSize, tileSize);
+				g2.fillOval(x*tileSize, y*tileSize, tileSize, tileSize);
 			}
 		}
 		if(getCurrentColor() == 1) {
-			g.setColor(player1Color);
-			g.drawString("Player one, it is your turn.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2 );
+			Stroke thick = new BasicStroke (4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL);
+			g2.setStroke(thick);
+			g2.setColor(player1Color);
+			g2.drawString("Player one, it is your turn. You are green.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2 );
 		}
 		else if (getCurrentColor() == 2) {
-			g.setColor(player2Color);
-			g.drawString("Player two, it is your turn.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);
+			g2.setColor(player2Color);
+			g2.drawString("Player two, it is your turn. You are blue.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);
 		}
 	}
 	
