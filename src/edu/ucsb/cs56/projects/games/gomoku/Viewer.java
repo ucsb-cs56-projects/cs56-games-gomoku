@@ -92,7 +92,7 @@ public class Viewer
 	}
 
 //inner class for actual game screen. All code in actionPerformed taken from Eric Huang's implementation.
-
+/*
 class GameScreenListener implements ActionListener {
 
 	public void actionPerformed(ActionEvent event){
@@ -127,7 +127,7 @@ class GameScreenListener implements ActionListener {
 	    panel.mainProgramTimer.schedule(panel.gomokuTask, 0, 20);
 	}
 }
-
+*/
 
 //inner class for Instructions
 class InstructionsListener implements ActionListener {
