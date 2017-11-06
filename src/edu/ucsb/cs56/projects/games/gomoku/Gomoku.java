@@ -376,8 +376,9 @@ public class Gomoku extends JPanel implements MouseListener
 			setCurrentColor(2);
 		}else{
 			setCurrentColor(1);
-	}   
-}
+        }
+        repaint();
+    }
  
     /** empty for now */
 	public void mouseEntered(MouseEvent mouse){ 
@@ -424,6 +425,7 @@ public class Gomoku extends JPanel implements MouseListener
 	 */
 	public void setGrid(int xCoord, int yCoord, int newColor)
 	{
+        //System.out.println (xCoord + "  "  + yCoord);
 		grid[xCoord][yCoord] = newColor;
 	}
 	
