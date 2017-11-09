@@ -369,7 +369,19 @@ public class Gomoku extends JPanel implements MouseListener
 		Controller c = new Controller(this);
 		c.coordinate(mouse);
 		
-		setGrid(c.getXCoord(),c.getYCoord() , getCurrentColor());
+		//checks if there is already a piece on the spot
+		if(grid[c.getXCoord()][c.getYCoord()]!= 1 && grid[c.getXCoord()][c.getYCoord()]!= 2)
+		{
+			//if no piece then colors that piece
+			setGrid(c.getXCoord(),c.getYCoord() , getCurrentColor());
+		}
+		else
+		{
+			//throws error message if they try to put their piece on another player's
+			JOptionPane.showMessageDialog(null, "You can't put your pieces over other players!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+		}
+		
 		
 		//Switch player
 		if(getCurrentColor() == 1){
@@ -427,7 +439,10 @@ public class Gomoku extends JPanel implements MouseListener
 	{
         //System.out.println (xCoord + "  "  + yCoord);
 		grid[xCoord][yCoord] = newColor;
+
 	}
+
+	
 	
 	/** 
 	 * getter for tileSize
