@@ -16,8 +16,9 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -65,6 +66,7 @@ public class Gomoku extends JPanel implements MouseListener
 		
 		//	General variables
 		gomokuTask = new gomokuTimerTask();
+        mainProgramTimer = new Timer (30, gomokuTask);
 		boardSize = new Point(19,19);
 		grid = new int[boardSize.x][boardSize.y];
 		for(int x = 0; x<boardSize.x;x++){
@@ -85,12 +87,16 @@ public class Gomoku extends JPanel implements MouseListener
 		//Add listeners that keep track of the mouse 
 		addMouseListener(this);
 		newFrame = new JFrame();
+        
+        // Start the mainProgramTimer
+        mainProgramTimer.start();
 	}
 	
 	/** 
 	 * repaint the board
 	 */
-	class gomokuTimerTask extends TimerTask{ 
+	class gomokuTimerTask implements ActionListener{
+        //boolean playAgainFrame = false;
 		//	Main loop, done every iteration.
 		public void run(){
 			int win = checkForWin();
@@ -116,36 +122,38 @@ public class Gomoku extends JPanel implements MouseListener
 				newFrame.getContentPane().add(content);
 				newFrame.setSize(300, 300);
 				newFrame.setVisible(true);
-				cancel();
-				mainProgramTimer.cancel();
 			}
 			//Repaint
 			frame.repaint();
 		}
-
-		class ReturnToTitleScreenListener implements ActionListener {
-
-			public void actionPerformed(ActionEvent event) {
-				frame.dispose();
-				newFrame.dispose();
-			}
-
-		}
-
-		class PlayAgainListener extends GameScreenListener {
-
-			public void actionPerformed(ActionEvent event) {
-
-				frame.dispose();
-				newFrame.dispose();
-				super.actionPerformed(event);
-
-			}
-
-		}
+        
+        public void actionPerformed (ActionEvent e) {
+            run();
+        }
 
 	}
 
+    
+    class ReturnToTitleScreenListener implements ActionListener {
+        
+        public void actionPerformed(ActionEvent event) {
+            frame.dispose();
+            newFrame.dispose();
+        }
+        
+    }
+    
+    class PlayAgainListener extends GameScreenListener {
+        
+        public void actionPerformed(ActionEvent event) {
+            
+            frame.dispose();
+            newFrame.dispose();
+            super.actionPerformed(event);
+            
+        }
+        
+    }
 
 
 	private int checkForWin(){
