@@ -231,28 +231,28 @@ public class Gomoku extends JPanel implements MouseListener
 	public int checkLowerDownwardsDiagonals(int[][] boardToCheck){
 		//First check diagonally from left to right downwards
 		//Middle and lower diagonals
-		for(int diagonalNo = 0;diagonalNo<boardToCheck[0].length;diagonalNo++){
+		for(int diagonalNo = 0; diagonalNo<boardToCheck[0].length; diagonalNo++){
 			int y = diagonalNo;
 			int x = 0;
 			int maxInARow = 0;
 			int lastColor = 0;
 			int potentialWinner = 0;
-			while(x<boardToCheck.length&&y<boardToCheck[0].length){
+			while(x<boardToCheck.length && y<boardToCheck[0].length){
 				if(boardToCheck[x][y]==lastColor&&lastColor!=0){
 					//Same as last color, and not empty
 					maxInARow++;
-				}else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
+					System.out.println(maxInARow);
+				}
+				else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
 				    if(maxInARow == 5 && playStandard){
 					//Standard Gomoku, which requires EXACTLY five in a row.
 					return lastColor;
 				    }
 				    //Not same as last color, and not empty
 					maxInARow = 1;
-				}else{
-				    if(maxInARow == 5 && playStandard){
-					//Standard Gomoku, which requires EXACTLY five in a row.
-					return lastColor;
-				    }
+				}
+				else{
+				    
 					//Reset
 					maxInARow = 0;
 				}
@@ -261,6 +261,11 @@ public class Gomoku extends JPanel implements MouseListener
 				    	//Freestyle Gomoku, wich allows five or more in a row.
 					return lastColor;
 				}
+				if(maxInARow == 5 && playStandard){
+					//Standard Gomoku, which requires EXACTLY five in a row.
+					return lastColor;
+				 }
+				 
 				//Update lastcolor
 				lastColor = boardToCheck[x][y];
 				
@@ -283,8 +288,8 @@ public class Gomoku extends JPanel implements MouseListener
 		int lastColor = 0;
 		int maxInARow = 0;
 		int potentialWinner = 0;
-		for(int y = 0;y<boardToCheck[0].length;y++){
-			for(int x = 0;x<boardToCheck.length;x++){
+		for(int y = 0; y<boardToCheck[0].length; y++){
+			for(int x = 0; x<boardToCheck.length; x++){
 				if(boardToCheck[x][y]==lastColor&&lastColor!=0){
 					//Same as last color, and not empty
 					maxInARow++;
