@@ -16,8 +16,9 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import javax.swing.Timer;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -65,6 +66,7 @@ public class Gomoku extends JPanel implements MouseListener
 		
 		//	General variables
 		gomokuTask = new gomokuTimerTask();
+        mainProgramTimer = new Timer (30, gomokuTask);
 		boardSize = new Point(19,19);
 		grid = new int[boardSize.x][boardSize.y];
 		for(int x = 0; x<boardSize.x;x++){
@@ -85,12 +87,16 @@ public class Gomoku extends JPanel implements MouseListener
 		//Add listeners that keep track of the mouse 
 		addMouseListener(this);
 		newFrame = new JFrame();
+        
+        // Start the mainProgramTimer
+        mainProgramTimer.start();
 	}
 	
 	/** 
 	 * repaint the board
 	 */
-	class gomokuTimerTask extends TimerTask{ 
+	class gomokuTimerTask implements ActionListener{
+        //boolean playAgainFrame = false;
 		//	Main loop, done every iteration.
 		public void run(){
 			int win = checkForWin();
@@ -116,36 +122,38 @@ public class Gomoku extends JPanel implements MouseListener
 				newFrame.getContentPane().add(content);
 				newFrame.setSize(300, 300);
 				newFrame.setVisible(true);
-				cancel();
-				mainProgramTimer.cancel();
 			}
 			//Repaint
 			frame.repaint();
 		}
-
-		class ReturnToTitleScreenListener implements ActionListener {
-
-			public void actionPerformed(ActionEvent event) {
-				frame.dispose();
-				newFrame.dispose();
-			}
-
-		}
-
-		class PlayAgainListener extends GameScreenListener {
-
-			public void actionPerformed(ActionEvent event) {
-
-				frame.dispose();
-				newFrame.dispose();
-				super.actionPerformed(event);
-
-			}
-
-		}
+        
+        public void actionPerformed (ActionEvent e) {
+            run();
+        }
 
 	}
 
+    
+    class ReturnToTitleScreenListener implements ActionListener {
+        
+        public void actionPerformed(ActionEvent event) {
+            frame.dispose();
+            newFrame.dispose();
+        }
+        
+    }
+    
+    class PlayAgainListener extends GameScreenListener {
+        
+        public void actionPerformed(ActionEvent event) {
+            
+            frame.dispose();
+            newFrame.dispose();
+            super.actionPerformed(event);
+            
+        }
+        
+    }
 
 
 	private int checkForWin(){
@@ -369,15 +377,28 @@ public class Gomoku extends JPanel implements MouseListener
 		Controller c = new Controller(this);
 		c.coordinate(mouse);
 		
-		setGrid(c.getXCoord(),c.getYCoord() , getCurrentColor());
+		//checks if there is already a piece on the spot
+		if(grid[c.getXCoord()][c.getYCoord()]!= 1 && grid[c.getXCoord()][c.getYCoord()]!= 2)
+		{
+			//if no piece then colors that piece
+			setGrid(c.getXCoord(),c.getYCoord() , getCurrentColor());
+		}
+		else
+		{
+			//throws error message if they try to put their piece on another player's
+			JOptionPane.showMessageDialog(null, "You can't put your pieces over other players!", "Error",
+                                    JOptionPane.ERROR_MESSAGE);
+		}
+		
 		
 		//Switch player
 		if(getCurrentColor() == 1){
 			setCurrentColor(2);
 		}else{
 			setCurrentColor(1);
-	}   
-}
+        }
+        repaint();
+    }
  
     /** empty for now */
 	public void mouseEntered(MouseEvent mouse){ 
@@ -424,8 +445,12 @@ public class Gomoku extends JPanel implements MouseListener
 	 */
 	public void setGrid(int xCoord, int yCoord, int newColor)
 	{
+        //System.out.println (xCoord + "  "  + yCoord);
 		grid[xCoord][yCoord] = newColor;
+
 	}
+
+	
 	
 	/** 
 	 * getter for tileSize
