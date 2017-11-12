@@ -382,6 +382,13 @@ public class Gomoku extends JPanel implements MouseListener
 		{
 			//if no piece then colors that piece
 			setGrid(c.getXCoord(),c.getYCoord() , getCurrentColor());
+					//Switch player
+				if(getCurrentColor() == 1){
+					setCurrentColor(2);
+				}else{
+					setCurrentColor(1);
+		        }
+		        repaint();
 		}
 		else
 		{
@@ -391,13 +398,6 @@ public class Gomoku extends JPanel implements MouseListener
 		}
 		
 		
-		//Switch player
-		if(getCurrentColor() == 1){
-			setCurrentColor(2);
-		}else{
-			setCurrentColor(1);
-        }
-        repaint();
     }
  
     /** empty for now */
