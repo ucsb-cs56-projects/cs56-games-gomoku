@@ -48,13 +48,15 @@ public class Gomoku extends JPanel implements MouseListener
 	private int currentColor;	//Either 1 or 2
 	public int[][] grid;
 	public Timer mainProgramTimer;
-	public JFrame newFrame;	
+	public JFrame newFrame;
+    private boolean isVisibleFrame = false;
 	public boolean playStandard = true; //Standard Gomoku requires exactly 5. Freestyle allows 5 or more.This variable is set from the home screen's check box, in the Viewer class. 
 
 	//Colors
 	private Color player1Color = new Color(0,200,0);
 	private Color player2Color = new Color(0,0,200);
 	private Color emptyColor = new Color(200,200,200);
+    
 	
 	/** 
 	 * constructor that creates a board, set the grid empty, set
@@ -87,6 +89,7 @@ public class Gomoku extends JPanel implements MouseListener
 		//Add listeners that keep track of the mouse 
 		addMouseListener(this);
 		newFrame = new JFrame();
+        newFrame.setVisible (isVisibleFrame);
         
         // Start the mainProgramTimer
         mainProgramTimer.start();
@@ -106,14 +109,24 @@ public class Gomoku extends JPanel implements MouseListener
 				if(win == 1){
 					theWinner = new JLabel("Congratulations, player one, you won!");;
 				}
-				if(win == 2){
+                else {
 					theWinner = new JLabel("Congratulations, player two, you won!");
 				}
 				JLabel text = new JLabel("Do you want to play again?");
-				JButton playAgainButton = new JButton("Yes");
-				playAgainButton.addActionListener(new PlayAgainListener());
-				JButton returnToTitleScreenButton = new JButton("No");
-			        returnToTitleScreenButton.addActionListener(new ReturnToTitleScreenListener());
+				JButton playAgainButton = new JButton("Play Again");
+                playAgainButton.addActionListener((x)-> {
+                    resetBoard();
+                    repaint();
+                    isVisibleFrame = false;
+                    newFrame.setVisible (isVisibleFrame);
+                    });
+				JButton returnToTitleScreenButton = new JButton("Main Menu");
+                returnToTitleScreenButton.addActionListener( (x) -> {
+                    Viewer.showHomePanel();
+                    resetBoard();
+                    isVisibleFrame = false;
+                    newFrame.setVisible (isVisibleFrame);
+                    });
 				JPanel content = new JPanel();
 			        content.add(theWinner);
 				content.add(text);
@@ -121,7 +134,8 @@ public class Gomoku extends JPanel implements MouseListener
 				content.add(returnToTitleScreenButton);
 				newFrame.getContentPane().add(content);
 				newFrame.setSize(300, 300);
-				newFrame.setVisible(true);
+                isVisibleFrame = true;
+				newFrame.setVisible(isVisibleFrame);
 			}
 			//Repaint
 			frame.repaint();
@@ -132,29 +146,6 @@ public class Gomoku extends JPanel implements MouseListener
         }
 
 	}
-
-    
-    class ReturnToTitleScreenListener implements ActionListener {
-        
-        public void actionPerformed(ActionEvent event) {
-            frame.dispose();
-            newFrame.dispose();
-        }
-        
-    }
-    
-    class PlayAgainListener extends GameScreenListener {
-        
-        public void actionPerformed(ActionEvent event) {
-            
-            frame.dispose();
-            newFrame.dispose();
-            super.actionPerformed(event);
-            
-        }
-        
-    }
-
 
 	/** 
 	 * the method to set the color of each grid and then switches player
@@ -233,6 +224,19 @@ public class Gomoku extends JPanel implements MouseListener
     public void mouseMoved(MouseEvent mouse){
     }	
 	
+    
+    /**
+     * resets the board state
+     */
+    public void resetBoard () {
+        for (int a = 0; a < grid.length; a++) {
+            for (int b = 0; b < grid[a].length; b++) {
+                grid [a][b] = 0;
+            }
+        }
+    }
+    
+    
 	/** 
 	 * getter for the currentColor
 	 * @return the number that represent the color
