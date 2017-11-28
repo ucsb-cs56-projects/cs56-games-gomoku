@@ -35,6 +35,7 @@ public class GomokuOrig extends JPanel implements MouseListener{
 	private int tileSize;
 	private gomokuTimerTask gomokuTask;
 	private Random random;
+	private boolean playStandard = true;
 	
 	//Game
 	private int currentColor;	//Either 1 or 2
@@ -85,7 +86,7 @@ public class GomokuOrig extends JPanel implements MouseListener{
 	class gomokuTimerTask extends TimerTask{ 
 		//	Main loop, done every iteration.
 		public void run(){
-			int win = checkWins.checkForWin(board);
+			int win = checkWins.checkForWin(board,playStandard);
 			if(win!=0){
 				System.out.println("Player "+win+" has won");
 				if(win == 1&&random.nextInt(5)==1){

@@ -2,7 +2,11 @@ package edu.ucsb.cs56.projects.games.gomoku;
 
 public class checkWins {
 
-
+/**
+	* Runs all of the other test methods
+	* @param grid the board
+	* @param boolean gameType - the difference between standard and original
+	*/
 	public static int checkForWin(int[][] grid, boolean gameType){
 		int win = 0;
 		win = checkHorizontalWin(grid, gameType);
