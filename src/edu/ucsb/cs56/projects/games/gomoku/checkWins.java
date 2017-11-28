@@ -107,14 +107,11 @@ public class checkWins {
 					maxInARow = 0;
 				}
 				//Check for 5 in a row
-				if(maxInARow >= 5 && !playStandard){
+				if((maxInARow >= 5 && !playStandard) || (maxInARow == 5 && playStandard)){
 				    	//Freestyle Gomoku, wich allows five or more in a row.
+						// OR Standard Gomoku, which requires EXACTLY five in a row.
 					return lastColor;
 				}
-				if(maxInARow == 5 && playStandard){
-					//Standard Gomoku, which requires EXACTLY five in a row.
-					return lastColor;
-				 }
 
 				//Update lastcolor
 				lastColor = boardToCheck[x][y];
@@ -150,20 +147,17 @@ public class checkWins {
 				    }
 		       			//Not same as last color, and not empty.
 					maxInARow = 1;
-				}else{
-
-				    if(maxInARow == 5 && playStandard){
-					//Standard Gomoku, which requires EXACTLY five in a row.
-					return lastColor;
-				    }
+				}else{   
 					//Reset
 					maxInARow = 0;
 				}
 				//Check for 5 in a row
-				if(maxInARow >= 5 && !playStandard){
+				if((maxInARow >= 5 && !playStandard) || (maxInARow == 5 && playStandard)){
 				    	//Freestyle Gomoku, wich allows five or more in a row.
+						// OR Standard Gomoku, which requires EXACTLY five in a row.
 					return lastColor;
 				}
+				
 				//Update lastcolor
 				lastColor = boardToCheck[x][y];
 			}
