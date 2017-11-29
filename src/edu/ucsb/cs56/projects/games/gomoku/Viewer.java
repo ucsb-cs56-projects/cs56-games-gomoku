@@ -64,7 +64,7 @@ public class Viewer extends JPanel
         
         frame.add (container);
         
-		frame.setSize(800, 600);
+		frame.setSize(700, 600);
 		frame.setVisible(true);
 	}
     

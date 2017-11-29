@@ -120,6 +120,10 @@ public class Gomoku extends JPanel implements MouseListener
         });
         this.add (resetButton);
         resetButton.setBounds (boardSize.x * tileSize + 50, boardSize.y/5 +60, 200, 50);
+
+        JLabel title = new JLabel(new ImageIcon("src/edu/ucsb/cs56/projects/games/gomoku/gomoku.png"));
+        this.add(title);
+        title.setBounds(20, boardSize.y*tileSize+20,550,150);
 	}
 	
 	/** 

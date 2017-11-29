@@ -30,7 +30,7 @@ class InstructionsPanel extends JPanel {
         JLabel instructThree = new JLabel(" The winner is the first player to get an unbroken row of five stones horizontally, vertically, or diagonally.");
         JLabel instructStandard = new JLabel("Standard Gomoku requires exactly five in a row to win.");
         JLabel instructFreestyle = new JLabel("Freestyle Gomoku allows five or more stones in a row to win.");
-        JLabel instructCheck = new JLabel("Defaul game is Standard. Change to Freestlye by checking the appropriate Settings box on the Home Screen.");
+        JLabel instructCheck = new JLabel("Default game is Standard. Change to Freestlye by checking the appropriate Settings box on the Home Screen.");
         panel.add(instruct);
         panel.add(instructTwo);
         panel.add(instructThree);

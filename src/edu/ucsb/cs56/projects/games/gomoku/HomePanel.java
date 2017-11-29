@@ -10,10 +10,12 @@ public class HomePanel extends JPanel {
     public HomePanel ( ) {
     
         //Set title for this screen.
-        JLabel title = new JLabel("Gomoku");
-        Font titleFont = new Font("sans_serif", Font.BOLD, 28);
-        title.setFont(titleFont);
-    
+        JLabel title = new JLabel(new ImageIcon("src/edu/ucsb/cs56/projects/games/gomoku/gomoku.png"));
+        title.setVisible(true);
+
+        this.setLayout(new GridLayout(0,1,10,10));
+
+           
     
         //When clicked, this button takes user to game screen.
         JButton getGameButton = new JButton("Play!");
@@ -51,8 +53,12 @@ public class HomePanel extends JPanel {
         OptionsPanel.setLayout(new BoxLayout(OptionsPanel, BoxLayout.Y_AXIS));
         SettingsPanel.setLayout(new BoxLayout(SettingsPanel, BoxLayout.Y_AXIS));
         
-        this.add(BorderLayout.EAST, OptionsPanel);
-        this.add(BorderLayout.NORTH, title);
-        this.add(BorderLayout.CENTER, SettingsPanel);
+        //adding everything to the panel
+        this.add(title);
+        this.add(getGameButton);
+        this.add(getInstructionsButton);
+        this.add(OptionsPanel);
+        this.add(SettingsPanel);
+        
     }
 }
