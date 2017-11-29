@@ -43,6 +43,8 @@ public class Gomoku extends JPanel implements MouseListener
 	private int tileSize;
 	public gomokuTimerTask gomokuTask;
 	private Random random;
+    private JButton toHomeMenu;
+    private JButton resetButton;
 	
 	//Game
 	private int currentColor;	//Either 1 or 2
@@ -65,7 +67,8 @@ public class Gomoku extends JPanel implements MouseListener
 	public Gomoku(){
 		
 		super();
-		
+        this.setLayout (null);
+        
 		//	General variables
 		gomokuTask = new gomokuTimerTask();
         mainProgramTimer = new Timer (30, gomokuTask);
@@ -93,6 +96,30 @@ public class Gomoku extends JPanel implements MouseListener
         
         // Start the mainProgramTimer
         mainProgramTimer.start();
+        
+        // The following button returns to the home menu
+        toHomeMenu = new JButton ("Return to Home Menu");
+        toHomeMenu.addActionListener ( (x) -> {
+            Viewer.showHomePanel();
+            resetBoard();
+            setCurrentColor (1);
+            isVisibleFrame = false;
+            newFrame.setVisible (isVisibleFrame);
+        });
+        this.add (toHomeMenu);
+        toHomeMenu.setBounds (boardSize.x * tileSize+50, boardSize.y/5, 200, 50 );
+        
+        // The following button resets the board
+        resetButton = new JButton ("New Game");
+        resetButton.addActionListener ( (x) -> {
+            resetBoard();
+            setCurrentColor (1);
+            repaint();
+            isVisibleFrame = false;
+            newFrame.setVisible (isVisibleFrame);
+        });
+        this.add (resetButton);
+        resetButton.setBounds (boardSize.x * tileSize + 50, boardSize.y/5 +60, 200, 50);
 	}
 	
 	/** 
