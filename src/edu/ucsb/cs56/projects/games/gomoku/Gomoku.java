@@ -43,18 +43,22 @@ public class Gomoku extends JPanel implements MouseListener
 	private int tileSize;
 	public gomokuTimerTask gomokuTask;
 	private Random random;
+    private JButton toHomeMenu;
+    private JButton resetButton;
 	
 	//Game
 	private int currentColor;	//Either 1 or 2
 	public int[][] grid;
 	public Timer mainProgramTimer;
-	public JFrame newFrame;	
+	public JFrame newFrame;
+    private boolean isVisibleFrame = false;
 	public boolean playStandard = true; //Standard Gomoku requires exactly 5. Freestyle allows 5 or more.This variable is set from the home screen's check box, in the Viewer class. 
 
 	//Colors
 	private Color player1Color = new Color(0,200,0);
 	private Color player2Color = new Color(0,0,200);
 	private Color emptyColor = new Color(200,200,200);
+    
 	
 	/** 
 	 * constructor that creates a board, set the grid empty, set
@@ -63,7 +67,8 @@ public class Gomoku extends JPanel implements MouseListener
 	public Gomoku(){
 		
 		super();
-		
+        this.setLayout (null);
+        
 		//	General variables
 		gomokuTask = new gomokuTimerTask();
         mainProgramTimer = new Timer (30, gomokuTask);
@@ -87,9 +92,38 @@ public class Gomoku extends JPanel implements MouseListener
 		//Add listeners that keep track of the mouse 
 		addMouseListener(this);
 		newFrame = new JFrame();
+        newFrame.setVisible (isVisibleFrame);
         
         // Start the mainProgramTimer
         mainProgramTimer.start();
+        
+        // The following button returns to the home menu
+        toHomeMenu = new JButton ("Return to Home Menu");
+        toHomeMenu.addActionListener ( (x) -> {
+            Viewer.showHomePanel();
+            resetBoard();
+            setCurrentColor (1);
+            isVisibleFrame = false;
+            newFrame.setVisible (isVisibleFrame);
+        });
+        this.add (toHomeMenu);
+        toHomeMenu.setBounds (boardSize.x * tileSize+50, boardSize.y/5, 200, 50 );
+        
+        // The following button resets the board
+        resetButton = new JButton ("New Game");
+        resetButton.addActionListener ( (x) -> {
+            resetBoard();
+            setCurrentColor (1);
+            repaint();
+            isVisibleFrame = false;
+            newFrame.setVisible (isVisibleFrame);
+        });
+        this.add (resetButton);
+        resetButton.setBounds (boardSize.x * tileSize + 50, boardSize.y/5 +60, 200, 50);
+
+        JLabel title = new JLabel(new ImageIcon("src/edu/ucsb/cs56/projects/games/gomoku/gomoku.png"));
+        this.add(title);
+        title.setBounds(20, boardSize.y*tileSize+20,550,150);
 	}
 	
 	/** 
@@ -99,21 +133,31 @@ public class Gomoku extends JPanel implements MouseListener
         //boolean playAgainFrame = false;
 		//	Main loop, done every iteration.
 		public void run(){
-			int win = checkForWin();
+			int win = checkWins.checkForWin(grid, playStandard);
 			if(win!=0){
 				JLabel theWinner = new JLabel("something is wrong with the code");
 				System.out.println("Player "+win+" has won");
 				if(win == 1){
 					theWinner = new JLabel("Congratulations, player one, you won!");;
 				}
-				if(win == 2){
+                else {
 					theWinner = new JLabel("Congratulations, player two, you won!");
 				}
 				JLabel text = new JLabel("Do you want to play again?");
-				JButton playAgainButton = new JButton("Yes");
-				playAgainButton.addActionListener(new PlayAgainListener());
-				JButton returnToTitleScreenButton = new JButton("No");
-			        returnToTitleScreenButton.addActionListener(new ReturnToTitleScreenListener());
+				JButton playAgainButton = new JButton("Play Again");
+                playAgainButton.addActionListener((x)-> {
+                    resetBoard();
+                    repaint();
+                    isVisibleFrame = false;
+                    newFrame.setVisible (isVisibleFrame);
+                    });
+				JButton returnToTitleScreenButton = new JButton("Main Menu");
+                returnToTitleScreenButton.addActionListener( (x) -> {
+                    Viewer.showHomePanel();
+                    resetBoard();
+                    isVisibleFrame = false;
+                    newFrame.setVisible (isVisibleFrame);
+                    });
 				JPanel content = new JPanel();
 			        content.add(theWinner);
 				content.add(text);
@@ -121,7 +165,8 @@ public class Gomoku extends JPanel implements MouseListener
 				content.add(returnToTitleScreenButton);
 				newFrame.getContentPane().add(content);
 				newFrame.setSize(300, 300);
-				newFrame.setVisible(true);
+                isVisibleFrame = true;
+				newFrame.setVisible(isVisibleFrame);
 			}
 			//Repaint
 			frame.repaint();
@@ -131,219 +176,6 @@ public class Gomoku extends JPanel implements MouseListener
             run();
         }
 
-	}
-
-    
-    class ReturnToTitleScreenListener implements ActionListener {
-        
-        public void actionPerformed(ActionEvent event) {
-            frame.dispose();
-            newFrame.dispose();
-        }
-        
-    }
-    
-    class PlayAgainListener extends GameScreenListener {
-        
-        public void actionPerformed(ActionEvent event) {
-            
-            frame.dispose();
-            newFrame.dispose();
-            super.actionPerformed(event);
-            
-        }
-        
-    }
-
-
-	private int checkForWin(){
-		int win = 0;
-		win = checkHorizontalWin(grid);
-		if(win!=0){
-			return win;
-		}
-		win = checkVerticalWin(grid);
-		if(win!=0){
-			return win;
-		}
-		win = checkDownwardsDiagonals(grid);
-		if(win!=0){
-			return win;
-		}
-		win = checkUpwardsDiagonals(grid);
-		if(win!=0){
-			return win;
-		}
-		return 0;
-	}
-/**
-	 * Checks if someone has won by placing 5 stones in a row diagonally upwards from left to right
-	 * @param the board to check for a winning player
-	 * @return is 0 if nobody won, or the player number if someone won
-	 */
-	public int checkUpwardsDiagonals(int[][] boardToCheck){
-		return checkDownwardsDiagonals(flipBoardVertically(boardToCheck));
-		
-	}
-
-/**
-	 * Flips the board vertically (mirrors it) 
-	 * @param the board that shall be flipped
-	 * @return flipped board
-	 */
-	private int[][] flipBoardVertically(int[][] boardToCheck){
-		int[][] boardToReturn = new int[boardToCheck.length][boardToCheck[0].length];
-		for(int x = 0;x<boardToCheck.length;x++){
-			for(int y = 0;y<boardToCheck[0].length;y++){
-				boardToReturn[x][y] = boardToCheck[x][boardToCheck[0].length-1-y];
-			}
-		}
-		return boardToReturn;
-	}
-
-/**
-	 * Checks if someone has won by placing 5 stones in a row diagonally downwards from left to right
-	 * @param the board to check for a winning player
-	 * @return is 0 if nobody won, or the player number if someone won
-	 */
-	public int checkDownwardsDiagonals(int[][] boardToCheck){
-		//First check diagonally from left to right downwards
-		//Middle and lower diagonals
-		int win = checkLowerDownwardsDiagonals(boardToCheck);
-		if(win!=0){
-			return win;
-		}
-		//Check upper diagonals
-		win = checkLowerDownwardsDiagonals(flipBoardDiagonally(boardToCheck));
-		if(win!=0){
-			return win;
-		}
-		return 0;
-	}
-
-/**
-	 * Checks if someone has won by placing 5 stones in a row diagonally downwards
-	 * from left to right in any of the lower diagonals (below the one that starts
-	 * at (0,0)).
-	 * @param the board to check for a winning player
-	 * @return is 0 if nobody won, or the player number if someone won
-	 */
-	public int checkLowerDownwardsDiagonals(int[][] boardToCheck){
-		//First check diagonally from left to right downwards
-		//Middle and lower diagonals
-		for(int diagonalNo = 0; diagonalNo<boardToCheck[0].length; diagonalNo++){
-			int y = diagonalNo;
-			int x = 0;
-			int maxInARow = 0;
-			int lastColor = 0;
-			int potentialWinner = 0;
-			while(x<boardToCheck.length && y<boardToCheck[0].length){
-				if(boardToCheck[x][y]==lastColor&&lastColor!=0){
-					//Same as last color, and not empty
-					maxInARow++;
-				}
-				else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
-				    if(maxInARow == 5 && playStandard){
-					//Standard Gomoku, which requires EXACTLY five in a row.
-					return lastColor;
-				    }
-				    //Not same as last color, and not empty
-					maxInARow = 1;
-				}
-				else{
-				    
-					//Reset
-					maxInARow = 0;
-				}
-				//Check for 5 in a row
-				if(maxInARow >= 5 && !playStandard){
-				    	//Freestyle Gomoku, wich allows five or more in a row.
-					return lastColor;
-				}
-				if(maxInARow == 5 && playStandard){
-					//Standard Gomoku, which requires EXACTLY five in a row.
-					return lastColor;
-				 }
-
-				//Update lastcolor
-				lastColor = boardToCheck[x][y];
-				
-				x++;
-				y++;
-			}
-			maxInARow = 0;
-			lastColor = 0;
-		}
-		return 0;
-	}
-
-	/**
-	 * Checks if someone has won by placing 5 stones in a horizontal row
-	 * @param the board to check for a winning player
-	 * @return is 0 if nobody won, or the player number if someone won
-	 */
-	public int checkHorizontalWin(int[][] boardToCheck){
-		//Horisontal
-		int lastColor = 0;
-		int maxInARow = 0;
-		int potentialWinner = 0;
-		for(int y = 0; y<boardToCheck[0].length; y++){
-			for(int x = 0; x<boardToCheck.length; x++){
-				if(boardToCheck[x][y]==lastColor&&lastColor!=0){
-					//Same as last color, and not empty
-					maxInARow++;
-				}else if(boardToCheck[x][y]!=lastColor&&boardToCheck[x][y]!=0){
-				    if(maxInARow == 5 && playStandard){
-					//Standard Gomoku, which requires EXACTLY five in a row.
-					return lastColor;
-				    }
-		       			//Not same as last color, and not empty.
-					maxInARow = 1;
-				}else{
-
-				    if(maxInARow == 5 && playStandard){
-					//Standard Gomoku, which requires EXACTLY five in a row.
-					return lastColor;
-				    }
-					//Reset
-					maxInARow = 0;
-				}
-				//Check for 5 in a row
-				if(maxInARow >= 5 && !playStandard){
-				    	//Freestyle Gomoku, wich allows five or more in a row.
-					return lastColor;
-				}
-				//Update lastcolor
-				lastColor = boardToCheck[x][y];
-			}
-			maxInARow = 0;
-			lastColor = 0;
-		}
-		return 0;
-	}
-
-/**
-	 * Checks if someone has won by placing 5 stones in a vertical row
-	 * @param the board to check for a winning player
-	 * @return is 0 if nobody won, or the player number if someone won
-	 */
-	public int checkVerticalWin(int[][] boardToTest){
-		return checkHorizontalWin(flipBoardDiagonally(boardToTest));
-	}
-	
-	/**
-	 * Flips a board diagonally (i.e. (1,2) becomes (2,1))
-	 * @param the board to be flipped
-	 * @return flipped board
-	 */
-	private int[][] flipBoardDiagonally(int[][] boardToFlip){
-		int[][] boardToReturn = new int[boardToFlip[0].length][boardToFlip.length];
-		for(int x=0;x<boardToFlip.length;x++){
-			for(int y=0;y<boardToFlip[0].length;y++){
-				boardToReturn[y][x] = boardToFlip[x][y];
-			}
-		}
-		return boardToReturn;
 	}
 
 	/** 
@@ -423,6 +255,19 @@ public class Gomoku extends JPanel implements MouseListener
     public void mouseMoved(MouseEvent mouse){
     }	
 	
+    
+    /**
+     * resets the board state
+     */
+    public void resetBoard () {
+        for (int a = 0; a < grid.length; a++) {
+            for (int b = 0; b < grid[a].length; b++) {
+                grid [a][b] = 0;
+            }
+        }
+    }
+    
+    
 	/** 
 	 * getter for the currentColor
 	 * @return the number that represent the color
