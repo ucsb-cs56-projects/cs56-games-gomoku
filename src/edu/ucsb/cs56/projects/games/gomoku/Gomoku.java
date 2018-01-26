@@ -133,7 +133,7 @@ public class Gomoku extends JPanel implements MouseListener
         //boolean playAgainFrame = false;
 		//	Main loop, done every iteration.
 		public void run(){
-			int win = checkWins.checkForWin(grid, playStandard);
+			int win = CheckWins.checkForWin(grid, playStandard);
 			if(win!=0){
 				JLabel theWinner = new JLabel("something is wrong with the code");
 				System.out.println("Player "+win+" has won");

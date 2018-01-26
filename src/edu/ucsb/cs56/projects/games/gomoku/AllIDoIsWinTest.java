@@ -18,7 +18,7 @@ public class AllIDoIsWinTest {
 	for (int i=0; i<5; i++) {
 	    test.grid[i][0] = 1;
 	}
-	int x = test.checkHorizontalWin(test.grid);
+	int x = CheckWins.checkHorizontalWin(test.grid, true);
 	assertEquals(1, x);
     }
     @Test
@@ -27,7 +27,7 @@ public class AllIDoIsWinTest {
 	for (int i=0; i<5; i++) {
 	    test.grid[0][i] = 1;
 	}
-	int x = test.checkVerticalWin(test.grid);
+	int x = CheckWins.checkVerticalWin(test.grid, true);
 	assertEquals(1, x);
     }
     @Test
@@ -36,7 +36,7 @@ public class AllIDoIsWinTest {
 	for (int i=0; i<5; i++) {
 	    test.grid[i][i+1] = 1;
 	}
-	int x = test.checkLowerDownwardsDiagonals(test.grid);
+	int x = CheckWins.checkLowerDownwardsDiagonals(test.grid, true);
 	assertEquals(1, x);
     }
 
@@ -46,7 +46,7 @@ public class AllIDoIsWinTest {
 	for (int i=0; i<5; i++) {
 	    test.grid[i][i] = 1;
 	}
-	int x = test.checkDownwardsDiagonals(test.grid);
+	int x = CheckWins.checkDownwardsDiagonals(test.grid, true);
 	assertEquals(1, x);
     }
 
@@ -57,7 +57,7 @@ public class AllIDoIsWinTest {
 	for (int i=0; i<5; i++) {
 	    test.grid[i][0] = 2;
 	}
-	int x = test.checkHorizontalWin(test.grid);
+	int x = CheckWins.checkHorizontalWin(test.grid, true);
 	assertEquals(2, x);
     }
     @Test
@@ -66,7 +66,7 @@ public class AllIDoIsWinTest {
 	for (int i=0; i<5; i++) {
 	    test.grid[0][i] = 2;
 	}
-	int x = test.checkVerticalWin(test.grid);
+	int x = CheckWins.checkVerticalWin(test.grid, true);
 	assertEquals(2, x);
     }
     @Test
@@ -75,7 +75,7 @@ public class AllIDoIsWinTest {
 	for (int i=0; i<5; i++) {
 	    test.grid[i][i+1] = 2;
 	}
-	int x = test.checkLowerDownwardsDiagonals(test.grid);
+	int x = CheckWins.checkLowerDownwardsDiagonals(test.grid, true);
 	assertEquals(2, x);
     }
 
@@ -86,7 +86,7 @@ public class AllIDoIsWinTest {
 	for (int i=0; i<5; i++) {
 	    test.grid[i][i] = 2;
 	}
-	int x = test.checkDownwardsDiagonals(test.grid);
+	int x = CheckWins.checkDownwardsDiagonals(test.grid, true);
 	assertEquals(2, x);
     }
 

@@ -1,6 +1,6 @@
 package edu.ucsb.cs56.projects.games.gomoku;
 
-public class checkWins {
+public class CheckWins {
 
 /**
 	* Runs all of the other test methods
