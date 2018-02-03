@@ -1,4 +1,4 @@
-Yiyang Xu
+Yiyang Xu,
 Nikki Tyagi
 
 (a) This game is a game involving two players who take turns placing their markers on the game board in order to achieve 5 in a row first.
