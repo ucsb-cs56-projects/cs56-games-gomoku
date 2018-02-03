@@ -25,5 +25,7 @@ Nikki Tyagi
 * [Infinitely printed message on terminal after someone wins](https://github.com/ucsb-cs56-projects/cs56-games-gomoku/issues/52)
 * [Incorrectly highlighted rectangle around text "New Game"](https://github.com/ucsb-cs56-projects/cs56-games-gomoku/issues/53)
 
-(i) The overall organization of the program is clear. The names of different classes and methods reflect what they are supposed to do. There are also comments that help us understand the relation between classes and the purposes of different methods. However, the Viewer.java class seems a bit confusing. It looks like an older version of implementing the main menu. Overall the code is easy to read and understand but the indentation of Gomoku.java class needs to be fixed. 
+(i) The overall organization of the program is clear. It is a lot of basic graphics design code. The names of different classes and methods reflect what they are supposed to do. There are also comments that help us understand the relation between classes and the purposes of different methods. However, the Viewer.java class seems a bit confusing. It looks like an older version of implementing the main menu. Overall the code is easy to read and understand but the indentation of Gomoku.java class needs to be fixed. To explain this code to someone else: there are several classes that help set up the game components, like the instructions and home screen and more. There is one main gomoku file that has how the game actually runs and ties in all the other components.
+
+(j) There are JUnit tests for the code to check for wins. These tests are fairly extensive since most of the other code is simply to set up the game. Another thing to test for could be the error messages and exceptions.
 
