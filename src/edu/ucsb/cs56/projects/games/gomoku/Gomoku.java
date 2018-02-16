@@ -72,7 +72,7 @@ public class Gomoku extends JPanel implements MouseListener
 		//	General variables
 		gomokuTask = new gomokuTimerTask();
         mainProgramTimer = new Timer (30, gomokuTask);
-		boardSize = new Point(19,19);
+		boardSize = new Point(15,15);
 		grid = new int[boardSize.x][boardSize.y];
 		for(int x = 0; x<boardSize.x;x++){
 			for(int y = 0;y<boardSize.y;y++){
