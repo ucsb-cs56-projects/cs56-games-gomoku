@@ -217,7 +217,7 @@ public class Gomoku extends JPanel implements MouseListener {
 		Controller c = new Controller(this);
 		c.coordinate(mouse);
 		// if statement to check if within bounds
-		if (c.getXCoord() <= boardSize.x && c.getYCoord() <= boardSize.y) {
+		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
 			// checks if there is already a piece on the spot
 			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
 				// if no piece then colors that piece
