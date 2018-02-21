@@ -186,6 +186,11 @@ public class Gomoku extends JPanel implements MouseListener {
 	 */
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
+		/*JLabel p1Turn = new JLabel("Player one, it is your turn. You are green.");
+		JLabel p2Turn = new JLabel("Player two, it is your turn. You are blue.");
+		g2.add(p1Turn);
+		g2.add(p2Turn);*/
+		g2.clearRect(0, 0, 5000, 5000);
 		for (int x = 0; x < boardSize.x; x++) {
 			for (int y = 0; y < boardSize.y; y++) {
 				if (grid[x][y] == 1) {
@@ -201,13 +206,21 @@ public class Gomoku extends JPanel implements MouseListener {
 		if (getCurrentColor() == 1) {
 			Stroke thick = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL);
 			g2.setStroke(thick);
+			/*g2.setColor(emptyColor);
+			  g2.drawString("Player two, it is your turn. You are blue.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);*/
+			g2.clearRect(boardSize.x * tileSize +10, boardSize.y * tileSize / 2 -10, 500 , tileSize);
 			g2.setColor(player1Color);
-			g2.drawString("Player one, it is your turn. You are green.", boardSize.x * tileSize + 10,
-					boardSize.y * tileSize / 2);
+			/*p1Turn.setVisible(true);
+			  p2Turn.setVisible(false);*/
+			g2.drawString("Player one, it is your turn. You are green.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);
 		} else if (getCurrentColor() == 2) {
-			g2.setColor(player2Color);
-			g2.drawString("Player two, it is your turn. You are blue.", boardSize.x * tileSize + 10,
-					boardSize.y * tileSize / 2);
+		    /*g2.setColor(emptyColor);
+		      g2.drawString("Player one, it is your turn. You are green.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);*/
+		    g2.clearRect(boardSize.x * tileSize +10, boardSize.y * tileSize / 2 -10, 500 , tileSize);
+		    g2.setColor(player2Color);
+			/*p1Turn.setVisible(false);
+			  p2Turn.setVisible(true);*/
+			g2.drawString("Player two, it is your turn. You are blue.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);
 		}
 	}
 
