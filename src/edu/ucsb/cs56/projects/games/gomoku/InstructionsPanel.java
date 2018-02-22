@@ -28,9 +28,9 @@ class InstructionsPanel extends JPanel {
 
 		JLabel instruct = new JLabel("Gomoku is a two-player strategy game.");
 		JLabel instructTwo = new JLabel(
-				" Players alternate clicking an empty circle, to indicate placing a 'stone' of their color.");
+				"Players alternate clicking an empty circle, to indicate placing a 'stone' of their color.");
 		JLabel instructThree = new JLabel(
-				" The winner is the first player to get an unbroken row of five stones horizontally, vertically, or diagonally.");
+				"The winner is the first player to get an unbroken row of five stones horizontally, vertically, or diagonally.");
 		JLabel instructStandard = new JLabel("Standard Gomoku requires exactly five in a row to win.");
 		JLabel instructFreestyle = new JLabel("Freestyle Gomoku allows five or more stones in a row to win.");
 		JLabel instructCheck = new JLabel(
@@ -41,7 +41,7 @@ class InstructionsPanel extends JPanel {
 		panel.add(instructStandard);
 		panel.add(instructFreestyle);
 		panel.add(instructCheck);
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+    panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		this.add(BorderLayout.CENTER, panel);
 
 	}
