@@ -130,29 +130,24 @@ public class Gomoku extends JPanel implements MouseListener {
 		JLabel title = new JLabel(new ImageIcon("src/edu/ucsb/cs56/projects/games/gomoku/gomoku.png"));
 		this.add(title);
 		title.setBounds(20, boardSize.y * tileSize + 20, 550, 150);
-   
-   	 undoButton = new JButton("Undo Move"); 
-   undoButton.addActionListener(new ActionListener(){
-     public void actionPerformed(ActionEvent e) {
-    	 setCurrentColor(0); 
-       setGrid(xc, yc, getCurrentColor()); 
-       if (getCurrentColor() == 1) { 
-         setCurrentColor(2); 
-         } 
-       else {
-    	 setCurrentColor(1); 
-       }     
-       }
-       });
-       this.add(undoButton);
-    	 undoButton.setBounds(boardSize.x*tileSize + 50, boardSize.y/5 +120, 200, 50);
-	  
-	 
+
+		undoButton = new JButton("Undo Move");
+		undoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setCurrentColor(0);
+				setGrid(xc, yc, getCurrentColor());
+				if (getCurrentColor() == 1) {
+					setCurrentColor(2);
+				} else {
+					setCurrentColor(1);
+				}
+			}
+		});
+		this.add(undoButton);
+		undoButton.setBounds(boardSize.x * tileSize + 50, boardSize.y / 5 + 120, 200, 50);
+
 	}
 
-	
- 
-	 
 	/**
 	 * repaint the board
 	 */
@@ -274,21 +269,17 @@ public class Gomoku extends JPanel implements MouseListener {
 
 	/** empty for now */
 	public void mouseEntered(MouseEvent mouse) {
-		Controller c = new Controller(this);
-		c.coordinate(mouse);
-		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
-			if (getCurrentColor() == 1 || getCurrentColor() == 3) {
-				setCurrentColor(4);
-        setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
-			} else if (getCurrentColor() == 2 || getCurrentColor() == 4) {
-				setCurrentColor(3);
-        setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
-			} else {
-				setCurrentColor(0);
-        setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
-			}
-			repaint();
-		}
+		/*
+		 * Controller c = new Controller(this); c.coordinate(mouse); if
+		 * (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) { if
+		 * (getCurrentColor() == 1 || getCurrentColor() == 3) {
+		 * setCurrentColor(4); setGrid(c.getXCoord(), c.getYCoord(),
+		 * getCurrentColor()); } else if (getCurrentColor() == 2 ||
+		 * getCurrentColor() == 4) { setCurrentColor(3); setGrid(c.getXCoord(),
+		 * c.getYCoord(), getCurrentColor()); } else { setCurrentColor(0);
+		 * setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor()); }
+		 * repaint(); }
+		 */
 	}
 
 	/** empty for now */
