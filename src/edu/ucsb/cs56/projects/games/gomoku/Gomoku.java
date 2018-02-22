@@ -34,7 +34,7 @@ import javax.swing.JPanel;
  * 
  * @author Madhu Kannan, Colin Garrett
  */
-public class Gomoku extends JPanel implements MouseListener{
+public class Gomoku extends JPanel implements MouseListener {
 
 	// General variables, such as screen size etc.
 	private Rectangle screen;
@@ -54,17 +54,17 @@ public class Gomoku extends JPanel implements MouseListener{
 	public JFrame newFrame;
 	private boolean isVisibleFrame = false;
 	public boolean playStandard = true; // Standard Gomoku requires exactly 5.
-	private int x;						// Freestyle allows 5 or more.This
-	private int y;						// variable is set from the home
-										// screen's check box, in the Viewer
-										// class.
+	private int x; // Freestyle allows 5 or more.This
+	private int y; // variable is set from the home
+					// screen's check box, in the Viewer
+					// class.
 
 	// Colors
-	private Color player1Color = new Color(0, 200, 0); //1
-	private Color player1HoverColor = new Color(0, 200, 0); //3
-	private Color player2Color = new Color(0, 0, 200); //2
-	private Color player2HoverColor = new Color(0, 0, 200); //4
-	private Color emptyColor = new Color(200, 200, 200); 
+	private Color player1Color = new Color(0, 200, 0); // 1
+	private Color player1HoverColor = new Color(0, 200, 0); // 3
+	private Color player2Color = new Color(0, 0, 200); // 2
+	private Color player2HoverColor = new Color(0, 0, 200); // 4
+	private Color emptyColor = new Color(200, 200, 200);
 
 	/**
 	 * constructor that creates a board, set the grid empty, set the initial
@@ -126,36 +126,27 @@ public class Gomoku extends JPanel implements MouseListener{
 		});
 		this.add(resetButton);
 		resetButton.setBounds(boardSize.x * tileSize + 50, boardSize.y / 5 + 60, 200, 50);
-		
+
 		JLabel title = new JLabel(new ImageIcon("src/edu/ucsb/cs56/projects/games/gomoku/gomoku.png"));
 		this.add(title);
 		title.setBounds(20, boardSize.y * tileSize + 20, 550, 150);
 	}
 
-	/*class undo implements ActionListener{
-		public void run() {
-			undoButton = new JButton("Undo Move");
-			undoButton.addActionListener((x) -> {
-				setCurrentColor(0);
-				setGrid(x, y, getCurrentColor());
-				if (getCurrentColor() == 1) {
-					setCurrentColor(2);
-				} else {
-					setCurrentColor(1);
-				}
-			});		
-			this.add(undoButton);
-			undoButton.setBounds(boardSize.x*tileSize + 50, boardSize.y/5 +120, 200, 50);
-
-		}
-		public void actionPerformed(ActionEvent e) {
-			run();
-		}
-	}*/
+	/*
+	 * class undo implements ActionListener{ public void run() { undoButton =
+	 * new JButton("Undo Move"); undoButton.addActionListener((x) -> {
+	 * setCurrentColor(0); setGrid(x, y, getCurrentColor()); if
+	 * (getCurrentColor() == 1) { setCurrentColor(2); } else {
+	 * setCurrentColor(1); } }); this.add(undoButton);
+	 * undoButton.setBounds(boardSize.x*tileSize + 50, boardSize.y/5 +120, 200,
+	 * 50);
+	 * 
+	 * } public void actionPerformed(ActionEvent e) { run(); } }
+	 */
 	/**
 	 * repaint the board
 	 */
-    class gomokuTimerTask implements ActionListener {
+	class gomokuTimerTask implements ActionListener {
 		// boolean playAgainFrame = false;
 		// Main loop, done every iteration.
 		public void run() {
@@ -216,12 +207,11 @@ public class Gomoku extends JPanel implements MouseListener{
 					g2.setColor(player1Color);
 				} else if (grid[x][y] == 2) {
 					g2.setColor(player2Color);
-				} else if (grid[x][y] == 3){
+				} else if (grid[x][y] == 3) {
 					g2.setColor(player1HoverColor);
-				} else if (grid[x][y] == 4){
+				} else if (grid[x][y] == 4) {
 					g2.setColor(player2HoverColor);
-				}
-				else {
+				} else {
 					g2.setColor(emptyColor);
 				}
 				g2.fillOval(x * tileSize, y * tileSize, tileSize, tileSize);
@@ -230,13 +220,15 @@ public class Gomoku extends JPanel implements MouseListener{
 		if (getCurrentColor() == 1) {
 			Stroke thick = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL);
 			g2.setStroke(thick);
-			g2.clearRect(boardSize.x * tileSize +10, boardSize.y * tileSize / 2 -10, 500 , tileSize);
+			g2.clearRect(boardSize.x * tileSize + 10, boardSize.y * tileSize / 2 - 10, 500, tileSize);
 			g2.setColor(player1Color);
-			g2.drawString("Player one, it is your turn. You are green.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);
+			g2.drawString("Player one, it is your turn. You are green.", boardSize.x * tileSize + 10,
+					boardSize.y * tileSize / 2);
 		} else if (getCurrentColor() == 2) {
-		    g2.clearRect(boardSize.x * tileSize +10, boardSize.y * tileSize / 2 -10, 500 , tileSize);
-		    g2.setColor(player2Color);
-			g2.drawString("Player two, it is your turn. You are blue.", boardSize.x * tileSize + 10, boardSize.y * tileSize / 2);
+			g2.clearRect(boardSize.x * tileSize + 10, boardSize.y * tileSize / 2 - 10, 500, tileSize);
+			g2.setColor(player2Color);
+			g2.drawString("Player two, it is your turn. You are blue.", boardSize.x * tileSize + 10,
+					boardSize.y * tileSize / 2);
 		}
 	}
 
@@ -275,13 +267,12 @@ public class Gomoku extends JPanel implements MouseListener{
 		Controller c = new Controller(this);
 		c.coordinate(mouse);
 		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
-			if (getCurrentColor() == 1 || getCurrentColor() == 3){
-				setCurrentColor(3);
-			}
-			else if (getCurrentColor() == 2 || getCurrentColor() == 4){
+			setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
+			if (getCurrentColor() == 1 || getCurrentColor() == 3) {
 				setCurrentColor(4);
-			}
-			else{
+			} else if (getCurrentColor() == 2 || getCurrentColor() == 4) {
+				setCurrentColor(3);
+			} else {
 				setCurrentColor(0);
 			}
 			repaint();
