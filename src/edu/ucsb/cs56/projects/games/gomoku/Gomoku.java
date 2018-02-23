@@ -270,7 +270,7 @@ public class Gomoku extends JPanel implements MouseListener {
 	/** empty for now */
 	public void mouseEntered(MouseEvent mouse) {
 
-		Controller c = new Controller(this);
+	    /*Controller c = new Controller(this);
 		c.coordinate(mouse);
 		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
 			if (getCurrentColor() == 1 || getCurrentColor() == 3) {
@@ -284,7 +284,7 @@ public class Gomoku extends JPanel implements MouseListener {
 				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
 			}
 			repaint();
-		}
+			}*/
 
 	}
 
