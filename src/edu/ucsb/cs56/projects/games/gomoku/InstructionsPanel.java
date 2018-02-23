@@ -26,6 +26,7 @@ class InstructionsPanel extends JPanel {
         this.add (BorderLayout.SOUTH, toHomePanel);
         
         JLabel instruct = new JLabel("Gomoku is a two-player strategy game.");
+	//instruct.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         JLabel instructTwo = new JLabel("Players alternate clicking an empty circle, to indicate placing a 'stone' of their color.");
         JLabel instructThree = new JLabel("The winner is the first player to get an unbroken row of five stones horizontally, vertically, or diagonally.");
         JLabel instructStandard = new JLabel("Standard Gomoku requires exactly five in a row to win.");
