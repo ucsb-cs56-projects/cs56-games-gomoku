@@ -24,20 +24,27 @@ class InstructionsPanel extends JPanel {
         JButton toHomePanel = new JButton ("Back to Home Screen");
         toHomePanel.addActionListener ((x)-> { Viewer.showHomePanel(); } );
         this.add (BorderLayout.SOUTH, toHomePanel);
-        
+	JLabel empty = new JLabel("                                     ");
+	empty.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         JLabel instruct = new JLabel("Gomoku is a two-player strategy game.");
 	//instruct.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         JLabel instructTwo = new JLabel("Players alternate clicking an empty circle, to indicate placing a 'stone' of their color.");
-        JLabel instructThree = new JLabel("The winner is the first player to get an unbroken row of five stones horizontally, vertically, or diagonally.");
+	//instructTwo.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+	JLabel instructThree = new JLabel("The winner is the first player to get an unbroken row of five stones horizontally,");
+	JLabel instructFour = new JLabel("vertically, or diagonally.");
         JLabel instructStandard = new JLabel("Standard Gomoku requires exactly five in a row to win.");
         JLabel instructFreestyle = new JLabel("Freestyle Gomoku allows five or more stones in a row to win.");
-        JLabel instructCheck = new JLabel("Default game is Standard. Change to Freestlye by checking the appropriate Settings box on the Home Screen.");
-        panel.add(instruct);
+        JLabel instructCheckOne = new JLabel("Default game is Standard. Change to Freestlye by checking the appropriate");
+	JLabel instructCheckTwo = new JLabel("Settings box on the Home Screen.");
+	panel.add(empty);
+	panel.add(instruct);
         panel.add(instructTwo);
         panel.add(instructThree);
+	panel.add(instructFour);
         panel.add(instructStandard);
         panel.add(instructFreestyle);
-        panel.add(instructCheck);
+        panel.add(instructCheckOne);
+	panel.add(instructCheckTwo);
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         this.add(BorderLayout.CENTER, panel);
         
