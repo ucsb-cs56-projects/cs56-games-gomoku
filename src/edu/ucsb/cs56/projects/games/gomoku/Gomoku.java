@@ -132,16 +132,18 @@ public class Gomoku extends JPanel implements MouseListener {
 		title.setBounds(20, boardSize.y * tileSize + 20, 550, 150);
 
 		undoButton = new JButton("Undo Move");
-		undoButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setCurrentColor(0);
+		undoButton.addActionListener(/*new ActionListener()*/(x) -> {
+			/*public void actionPerformed(ActionEvent e) {*/
+			// setCurrentColor(0);
 				setGrid(xc, yc, getCurrentColor());
+				//repaint();
 				if (getCurrentColor() == 1) {
 					setCurrentColor(2);
 				} else {
 					setCurrentColor(1);
 				}
-			}
+				repaint();
+			
 		});
 		this.add(undoButton);
 		undoButton.setBounds(boardSize.x * tileSize + 50, boardSize.y / 5 + 120, 200, 50);
@@ -245,9 +247,11 @@ public class Gomoku extends JPanel implements MouseListener {
 		// if statement to check if within bounds
 		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
 			// checks if there is already a piece on the spot
-			xc = c.getXCoord();
-			yc = c.getYCoord();
+			//xc = c.getXCoord();
+			//yc = c.getYCoord();
 			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
+			    xc = c.getXCoord();
+			    yc = c.getYCoord();
 				// if no piece then colors that piece
 				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
 				// Switch player
