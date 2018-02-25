@@ -56,7 +56,7 @@ public class Gomoku extends JPanel implements MouseListener {
 	public boolean playStandard = true; // Standard Gomoku requires exactly 5.
 	private int xc; // Freestyle allows 5 or more.This
 	private int yc; // variable is set from the home
-					// screen's check box, in the Viewer
+	private int turn;				// screen's check box, in the Viewer
 					// class.
 
 	// Colors
@@ -132,18 +132,16 @@ public class Gomoku extends JPanel implements MouseListener {
 		title.setBounds(20, boardSize.y * tileSize + 20, 550, 150);
 
 		undoButton = new JButton("Undo Move");
-		undoButton.addActionListener(/*new ActionListener()*/(x) -> {
-			/*public void actionPerformed(ActionEvent e) {*/
-			// setCurrentColor(0);
-				setGrid(xc, yc, getCurrentColor());
-				//repaint();
-				if (getCurrentColor() == 1) {
+		undoButton.addActionListener((x) -> {
+			
+			  turn = grid[xc][yc];
+				setGrid(xc, yc, 0);
+				repaint();
+				if (turn == 2) {
 					setCurrentColor(2);
 				} else {
 					setCurrentColor(1);
 				}
-				repaint();
-			
 		});
 		this.add(undoButton);
 		undoButton.setBounds(boardSize.x * tileSize + 50, boardSize.y / 5 + 120, 200, 50);
@@ -247,8 +245,6 @@ public class Gomoku extends JPanel implements MouseListener {
 		// if statement to check if within bounds
 		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
 			// checks if there is already a piece on the spot
-			//xc = c.getXCoord();
-			//yc = c.getYCoord();
 			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
 			    xc = c.getXCoord();
 			    yc = c.getYCoord();
