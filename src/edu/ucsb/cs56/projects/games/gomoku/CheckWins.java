@@ -5,9 +5,11 @@ public class CheckWins {
 	/**
 	 * Runs all of the other test methods
 	 * 
-	 * @param grid - the board
-	 * @param gameType - the difference between standard and original
-   * @return is which player wins
+	 * @param grid
+	 *            - the board
+	 * @param gameType
+	 *            - the difference between standard and original
+	 * @return is which player wins
 	 */
 	public static int checkForWin(int[][] grid, boolean gameType) {
 		int win = 0;
@@ -34,8 +36,10 @@ public class CheckWins {
 	 * Checks if someone has won by placing 5 stones in a row diagonally upwards
 	 * from left to right
 	 * 
-	 * @param boardToCheck to check for a winning player
-   * @param playStandard - check if standard or freestyle
+	 * @param boardToCheck
+	 *            to check for a winning player
+	 * @param playStandard
+	 *            - check if standard or freestyle
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
 	public static int checkUpwardsDiagonals(int[][] boardToCheck, boolean playStandard) {
@@ -46,7 +50,8 @@ public class CheckWins {
 	/**
 	 * Flips the board vertically (mirrors it)
 	 * 
-	 * @param boardToCheck the board that shall be flipped
+	 * @param boardToCheck
+	 *            the board that shall be flipped
 	 * @return flipped board
 	 */
 	private static int[][] flipBoardVertically(int[][] boardToCheck) {
@@ -63,8 +68,10 @@ public class CheckWins {
 	 * Checks if someone has won by placing 5 stones in a row diagonally
 	 * downwards from left to right
 	 * 
-	 * @param boardToCheck the board to check for a winning player
-   * @param playStandard - checks version of game
+	 * @param boardToCheck
+	 *            the board to check for a winning player
+	 * @param playStandard
+	 *            - checks version of game
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
 	public static int checkDownwardsDiagonals(int[][] boardToCheck, boolean playStandard) {
@@ -87,8 +94,10 @@ public class CheckWins {
 	 * downwards from left to right in any of the lower diagonals (below the one
 	 * that starts at (0,0)).
 	 * 
-	 * @param boardToCheck the board to check for a winning player
-   * @param playStandard - checks version of game
+	 * @param boardToCheck
+	 *            the board to check for a winning player
+	 * @param playStandard
+	 *            - checks version of game
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
 	public static int checkLowerDownwardsDiagonals(int[][] boardToCheck, boolean playStandard) {
@@ -139,8 +148,10 @@ public class CheckWins {
 	/**
 	 * Checks if someone has won by placing 5 stones in a horizontal row
 	 * 
-	 * @param boardToCheck the board to check for a winning player
-   * @param playStandard - checks version of game
+	 * @param boardToCheck
+	 *            the board to check for a winning player
+	 * @param playStandard
+	 *            - checks version of game
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
 	public static int checkHorizontalWin(int[][] boardToCheck, boolean playStandard) {
@@ -184,8 +195,10 @@ public class CheckWins {
 	/**
 	 * Checks if someone has won by placing 5 stones in a vertical row
 	 * 
-	 * @param boardToTest the board to test for a winning player
-   * @param playStandard - checks version of game
+	 * @param boardToTest
+	 *            the board to test for a winning player
+	 * @param playStandard
+	 *            - checks version of game
 	 * @return is 0 if nobody won, or the player number if someone won
 	 */
 	public static int checkVerticalWin(int[][] boardToTest, boolean playStandard) {
@@ -195,7 +208,8 @@ public class CheckWins {
 	/**
 	 * Flips a board diagonally (i.e. (1,2) becomes (2,1))
 	 * 
-	 * @param boardToFlip - the board to be flipped
+	 * @param boardToFlip
+	 *            - the board to be flipped
 	 * @return flipped board
 	 */
 	private static int[][] flipBoardDiagonally(int[][] boardToFlip) {

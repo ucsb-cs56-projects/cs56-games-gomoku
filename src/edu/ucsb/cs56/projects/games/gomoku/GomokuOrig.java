@@ -103,7 +103,8 @@ public class GomokuOrig extends JPanel implements MouseListener {
 	/**
 	 * Paints the board
 	 * 
-	 * @param g - the graphics object on which to paint
+	 * @param g
+	 *            - the graphics object on which to paint
 	 */
 	public void paintComponent(Graphics g) {
 
@@ -136,7 +137,9 @@ public class GomokuOrig extends JPanel implements MouseListener {
 	/**
 	 * Places a stone of the current color at the appropriate place on the board
 	 * 
-	 * @param mouse - the MouseEvent with information on where the player has clicked
+	 * @param mouse
+	 *            - the MouseEvent with information on where the player has
+	 *            clicked
 	 */
 	private void placeStone(MouseEvent mouse) {
 		if (board[mouse.getX() / tileSize][mouse.getY() / tileSize] == 0) {
@@ -161,8 +164,7 @@ public class GomokuOrig extends JPanel implements MouseListener {
 
 	public void mouseReleased(MouseEvent mouse) {
 	}
- 
- 
+
 	public static void main(String args[]) {
 		// Create a timer.
 		java.util.Timer mainProgramTimer = new java.util.Timer();

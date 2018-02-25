@@ -34,14 +34,13 @@ import javax.swing.JPanel;
  * 
  * @author Madhu Kannan, Colin Garrett
  */
- /**
+/**
  * edited for CS56 W18
  * 
  * @author Yiyang Xu, Nikita Tyagi
  */
- 
- 
-public class Gomoku extends JPanel implements MouseListener {
+
+public class Gomoku extends JPanel implements MouseListener, MouseMotionListener {
 
 	// General variables, such as screen size etc.
 	private Rectangle screen;
@@ -63,14 +62,14 @@ public class Gomoku extends JPanel implements MouseListener {
 	public boolean playStandard = true; // Standard Gomoku requires exactly 5.
 	private int xc; // Freestyle allows 5 or more.This
 	private int yc; // variable is set from the home
-	private int turn;				// screen's check box, in the Viewer
-					// class.
+	private int turn; // screen's check box, in the Viewer
+	// class.
 
 	// Colors
 	private Color player1Color = new Color(0, 200, 0); // 1
-	private Color player1HoverColor = new Color(0, 200, 0); // 3
+	private Color player1HoverColor = new Color(0, 100, 0); // 3
 	private Color player2Color = new Color(0, 0, 200); // 2
-	private Color player2HoverColor = new Color(0, 0, 200); // 4
+	private Color player2HoverColor = new Color(0, 0, 100); // 4
 	private Color emptyColor = new Color(200, 200, 200);
 
 	/**
@@ -104,6 +103,7 @@ public class Gomoku extends JPanel implements MouseListener {
 
 		// Add listeners that keep track of the mouse
 		addMouseListener(this);
+		addMouseMotionListener(this);
 		newFrame = new JFrame();
 		newFrame.setVisible(isVisibleFrame);
 
@@ -140,15 +140,15 @@ public class Gomoku extends JPanel implements MouseListener {
 
 		undoButton = new JButton("Undo Move");
 		undoButton.addActionListener((x) -> {
-			
-			  turn = grid[xc][yc];
-				setGrid(xc, yc, 0);
-				repaint();
-				if (turn == 2) {
-					setCurrentColor(2);
-				} else {
-					setCurrentColor(1);
-				}
+
+			turn = grid[xc][yc];
+			setGrid(xc, yc, 0);
+			repaint();
+			if (turn == 2) {
+				setCurrentColor(2);
+			} else {
+				setCurrentColor(1);
+			}
 		});
 		this.add(undoButton);
 		undoButton.setBounds(boardSize.x * tileSize + 50, boardSize.y / 5 + 120, 200, 50);
@@ -168,10 +168,10 @@ public class Gomoku extends JPanel implements MouseListener {
 				System.out.println("Player " + win + " has won");
 				if (win == 1) {
 					theWinner = new JLabel("Congratulations, player one, you won!");
-					
+
 				} else {
 					theWinner = new JLabel("Congratulations, player two, you won!");
-           
+
 				}
 				JLabel text = new JLabel("Do you want to play again?");
 				JButton playAgainButton = new JButton("Play Again");
@@ -254,8 +254,8 @@ public class Gomoku extends JPanel implements MouseListener {
 		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
 			// checks if there is already a piece on the spot
 			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
-			    xc = c.getXCoord();
-			    yc = c.getYCoord();
+				xc = c.getXCoord();
+				yc = c.getYCoord();
 				// if no piece then colors that piece
 				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
 				// Switch player
@@ -278,21 +278,17 @@ public class Gomoku extends JPanel implements MouseListener {
 	/** empty for now */
 	public void mouseEntered(MouseEvent mouse) {
 
-	    /*Controller c = new Controller(this);
-		c.coordinate(mouse);
-		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
-			if (getCurrentColor() == 1 || getCurrentColor() == 3) {
-				setCurrentColor(4);
-				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
-			} else if (getCurrentColor() == 2 || getCurrentColor() == 4) {
-				setCurrentColor(3);
-				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
-			} else {
-				setCurrentColor(0);
-				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
-			}
-			repaint();
-			}*/
+		/*
+		 * Controller c = new Controller(this); c.coordinate(mouse); if
+		 * (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) { if
+		 * (getCurrentColor() == 1 || getCurrentColor() == 3) {
+		 * setCurrentColor(4); setGrid(c.getXCoord(), c.getYCoord(),
+		 * getCurrentColor()); } else if (getCurrentColor() == 2 ||
+		 * getCurrentColor() == 4) { setCurrentColor(3); setGrid(c.getXCoord(),
+		 * c.getYCoord(), getCurrentColor()); } else { setCurrentColor(0);
+		 * setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor()); }
+		 * repaint(); }
+		 */
 
 	}
 
@@ -314,6 +310,21 @@ public class Gomoku extends JPanel implements MouseListener {
 
 	/** empty for now */
 	public void mouseMoved(MouseEvent mouse) {
+		/*
+		 * Controller c = new Controller(this); int x; int y;
+		 * c.coordinate(mouse); if (c.getXCoord() < boardSize.x && c.getYCoord()
+		 * < boardSize.y) { x = c.getXCoord(); y = c.getYCoord(); //if (xc !=
+		 * c.getXCoord() || yc != c.getYCoord()){ if (getCurrentColor() == 1){
+		 * grid[c.getXCoord()][c.getYCoord()] = 3; } else if (getCurrentColor()
+		 * == 2){ grid[c.getXCoord()][c.getYCoord()] = 4; } repaint(); if
+		 * (grid[x][y] == 3 || grid[x][y] == 4){ grid[x][y] = 0; } //}
+		 * repaint();
+		 * 
+		 * }
+		 */
+		// xc = c.getXCoord();
+		// yc = c.getYCoord();
+
 	}
 
 	/**
@@ -349,9 +360,12 @@ public class Gomoku extends JPanel implements MouseListener {
 	/**
 	 * setter for the color in the grid
 	 * 
-	 * @param xCoord the x coordinate
-	 * @param yCoord the y coordinate
-	 * @param newColor the new color desired
+	 * @param xCoord
+	 *            the x coordinate
+	 * @param yCoord
+	 *            the y coordinate
+	 * @param newColor
+	 *            the new color desired
 	 */
 	public void setGrid(int xCoord, int yCoord, int newColor) {
 		// System.out.println (xCoord + " " + yCoord);
