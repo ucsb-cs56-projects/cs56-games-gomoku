@@ -34,6 +34,13 @@ import javax.swing.JPanel;
  * 
  * @author Madhu Kannan, Colin Garrett
  */
+ /**
+ * edited for CS56 W18
+ * 
+ * @author Yiyang Xu, Nikita Tyagi
+ */
+ 
+ 
 public class Gomoku extends JPanel implements MouseListener {
 
 	// General variables, such as screen size etc.
@@ -161,9 +168,10 @@ public class Gomoku extends JPanel implements MouseListener {
 				System.out.println("Player " + win + " has won");
 				if (win == 1) {
 					theWinner = new JLabel("Congratulations, player one, you won!");
-					;
+					
 				} else {
 					theWinner = new JLabel("Congratulations, player two, you won!");
+           
 				}
 				JLabel text = new JLabel("Do you want to play again?");
 				JButton playAgainButton = new JButton("Play Again");
@@ -341,12 +349,9 @@ public class Gomoku extends JPanel implements MouseListener {
 	/**
 	 * setter for the color in the grid
 	 * 
-	 * @param xCoord
-	 *            the x coordinate
-	 * @param yCoord
-	 *            the y coordinate
-	 * @param newColor
-	 *            the new color desired
+	 * @param xCoord the x coordinate
+	 * @param yCoord the y coordinate
+	 * @param newColor the new color desired
 	 */
 	public void setGrid(int xCoord, int yCoord, int newColor) {
 		// System.out.println (xCoord + " " + yCoord);
