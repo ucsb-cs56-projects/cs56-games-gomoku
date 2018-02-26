@@ -64,12 +64,13 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 	private int yc; // variable is set from the home
 	private int turn; // screen's check box, in the Viewer
 	// class.
-
+        private int preX;
+        private int preY;
 	// Colors
 	private Color player1Color = new Color(0, 200, 0); // 1
-	private Color player1HoverColor = new Color(0, 100, 0); // 3
+	private Color player1HoverColor = new Color(0, 255, 0); // 3
 	private Color player2Color = new Color(0, 0, 200); // 2
-	private Color player2HoverColor = new Color(0, 0, 100); // 4
+	private Color player2HoverColor = new Color(0, 0, 255); // 4
 	private Color emptyColor = new Color(200, 200, 200);
 
 	/**
@@ -140,7 +141,6 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 		undoButton = new JButton("Undo Move");
 		undoButton.addActionListener((x) -> {
-
 			turn = grid[xc][yc];
 			setGrid(xc, yc, 0);
 			repaint();
@@ -259,7 +259,7 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 				// if no piece then colors that piece
 				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
 				// Switch player
-				if (getCurrentColor() == 1 || getCurrentColor() == 3) {
+				if (getCurrentColor() == 1) {
 					setCurrentColor(2);
 				} else {
 					setCurrentColor(1);
@@ -310,23 +310,23 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseMoved(MouseEvent mouse) {
-		/*
-		 * Controller c = new Controller(this); int x; int y;
-		 * c.coordinate(mouse); if (c.getXCoord() < boardSize.x && c.getYCoord()
-		 * < boardSize.y) { x = c.getXCoord(); y = c.getYCoord(); //if (xc !=
-		 * c.getXCoord() || yc != c.getYCoord()){ if (getCurrentColor() == 1){
-		 * grid[c.getXCoord()][c.getYCoord()] = 3; } else if (getCurrentColor()
-		 * == 2){ grid[c.getXCoord()][c.getYCoord()] = 4; } repaint(); if
-		 * (grid[x][y] == 3 || grid[x][y] == 4){ grid[x][y] = 0; } //}
-		 * repaint();
-		 * 
-		 * }
-		 */
-		// xc = c.getXCoord();
-		// yc = c.getYCoord();
-
+	    /* Controller c = new Controller(this);
+		 c.coordinate(mouse);
+		 setGrid(preX,preY,0);
+		 repaint();
+		 if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y){
+		     if (getCurrentColor() == 1){
+			 setGrid(c.getXCoord(),c.getYCoord(),3);
+		     }else if (getCurrentColor() == 2){
+			 setGrid(c.getXCoord(),c.getYCoord(),4);
+		     }
+		     repaint();
+		     preX = c.getXCoord();
+		     preY = c.getYCoord();
+		     }*/
 	}
-
+		 
+    
 	/**
 	 * resets the board state
 	 */
