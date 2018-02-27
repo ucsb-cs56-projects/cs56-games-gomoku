@@ -3,6 +3,8 @@ cs56-games-client-server-v2
 
 A new version of cs56-games-client-server that is identical on the outside, but substantially refactored inside to have better MVC separation.
 
+YIyang XU, Nikki Tyagi, link to the javadoc: https://meredithxu.github.io/cs56-games-gomoku/javadoc
+
 project history
 ===============
 CS56, F16: Madhu Kannan, Colin Garrett
