@@ -64,8 +64,8 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 	private int yc; // variable is set from the home
 	private int turn; // screen's check box, in the Viewer
 	// class.
-        private int preX;
-        private int preY;
+	private int preX;
+	private int preY;
 	// Colors
 	private Color player1Color = new Color(0, 200, 0); // 1
 	private Color player1HoverColor = new Color(0, 255, 0); // 3
@@ -310,23 +310,16 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseMoved(MouseEvent mouse) {
-	    /* Controller c = new Controller(this);
-		 c.coordinate(mouse);
-		 setGrid(preX,preY,0);
-		 repaint();
-		 if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y){
-		     if (getCurrentColor() == 1){
-			 setGrid(c.getXCoord(),c.getYCoord(),3);
-		     }else if (getCurrentColor() == 2){
-			 setGrid(c.getXCoord(),c.getYCoord(),4);
-		     }
-		     repaint();
-		     preX = c.getXCoord();
-		     preY = c.getYCoord();
-		     }*/
+		/*
+		 * Controller c = new Controller(this); c.coordinate(mouse);
+		 * setGrid(preX,preY,0); repaint(); if (c.getXCoord() < boardSize.x &&
+		 * c.getYCoord() < boardSize.y){ if (getCurrentColor() == 1){
+		 * setGrid(c.getXCoord(),c.getYCoord(),3); }else if (getCurrentColor()
+		 * == 2){ setGrid(c.getXCoord(),c.getYCoord(),4); } repaint(); preX =
+		 * c.getXCoord(); preY = c.getYCoord(); }
+		 */
 	}
-		 
-    
+
 	/**
 	 * resets the board state
 	 */
