@@ -310,14 +310,21 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseMoved(MouseEvent mouse) {
-		/*
-		 * Controller c = new Controller(this); c.coordinate(mouse);
-		 * setGrid(preX,preY,0); repaint(); if (c.getXCoord() < boardSize.x &&
-		 * c.getYCoord() < boardSize.y){ if (getCurrentColor() == 1){
-		 * setGrid(c.getXCoord(),c.getYCoord(),3); }else if (getCurrentColor()
-		 * == 2){ setGrid(c.getXCoord(),c.getYCoord(),4); } repaint(); preX =
-		 * c.getXCoord(); preY = c.getYCoord(); }
-		 */
+		
+	    /* Controller c = new Controller(this);
+		  c.coordinate(mouse);
+		  setGrid(preX,preY,0);
+		  repaint();
+		  if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y){
+		     if (getCurrentColor() == 1){
+			 setGrid(c.getXCoord(),c.getYCoord(),3);
+		     }else if (getCurrentColor() == 2){
+			 setGrid(c.getXCoord(),c.getYCoord(),4);
+		     }
+		     repaint();
+		     preX = c.getXCoord();
+		     preY = c.getYCoord();
+		     }*/
 	}
 
 	/**
