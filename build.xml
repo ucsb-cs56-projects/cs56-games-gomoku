@@ -5,11 +5,10 @@
   build.xml
   name: Eric Huang for CS56, S13
   edited by: Madhu Kannan, Colin Garrett for CS56, F16
+  edited by: Yiyang Xu, Nikita Tyagi for CS56 W18
   -->
 
   <property environment="env"/> <!-- load the environment variables --> 
-  <property name="webRoot" value="${env.HOME}/public_html/cs56" />
-  <property name="webBaseUrl" value="http://www.cs.ucsb.edu/~${env.USER}/cs56" />
 
   <property name="course" value="CS56" />
   <property name="quarter" value="F16" />
@@ -21,8 +20,7 @@
   <property name="projectPath" 
 	value="edu/ucsb/${course}/projects/games/gomoku" />
   
-  <property name="javadocDest" value="${webRoot}/${projectPath}/javadoc" />
-  <property name="javadocURL" value="${webBaseUrl}/${projectPath}/javadoc" />
+  <property name="javadocDest" value="docs/javadoc" />
   <property name="javadocLink" value="https://docs.oracle.com/javase/8/docs/api/" />
   
   <path id="project.class.path">
@@ -59,7 +57,7 @@
     <delete failonerror="false" verbose="true">
       <fileset dir="build" includes="*.class"/>
     </delete>
-    <delete dir="javadoc" quiet="true" />
+    <delete dir="docs/javadoc" quiet="true" />
     <delete dir="dist" quiet="true" />
     <!--
 		<delete dir="download" quiet="true" />
@@ -70,31 +68,13 @@
   
  <target name="javadoc" depends="compile" description="upload javadoc"> 
  
-   <delete dir="javadoc" quiet="true" /> 
-   <javadoc  destdir="javadoc" author="true" version="true" use="true" >  
+   <mkdir dir = "docs" />
+   <delete dir="docs/javadoc" quiet="true" /> 
+   <javadoc  destdir="docs/javadoc" author="true" version="true" use="true" >  
       <fileset dir="src" includes="**/*.java"/>  
-      <classpath refid="project.class.path2" />
+      <classpath refid="project.class.path" />
       <link href="${javadocLink}" />
    </javadoc>
-
-   <!-- delete the old javadoc -->
-   <delete quiet="true" dir="${javadocDest}" />
-
-   <!-- copy everything you just made to the javadoc destination,
-    and then make it readable --> 
- 
-   <copy todir="${javadocDest}" > 
-     <fileset dir="javadoc"/> 
-   </copy>
- 
-   <!-- Note: this only does the chmod command on the 
-        javadoc subdirectory and its contents.  You MIGHT have to
-	MANUALLY do the chmod on the parent directories.  However,
-	you should only need to do that once. --> 
- 
- <chmod dir="${javadocDest}" perm="755"  type="dir" includes="**" /> 
-   <chmod dir="${javadocDest}" perm="755"  type="file" includes="**/*" /> 
-   <echo>Javadoc deployed to ${javadocURL}</echo>
  
 </target>
 
