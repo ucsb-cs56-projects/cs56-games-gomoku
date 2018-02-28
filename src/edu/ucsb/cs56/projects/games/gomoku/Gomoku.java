@@ -277,23 +277,14 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseEntered(MouseEvent mouse) {
-
-		/*
-		 * Controller c = new Controller(this); c.coordinate(mouse); if
-		 * (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) { if
-		 * (getCurrentColor() == 1 || getCurrentColor() == 3) {
-		 * setCurrentColor(4); setGrid(c.getXCoord(), c.getYCoord(),
-		 * getCurrentColor()); } else if (getCurrentColor() == 2 ||
-		 * getCurrentColor() == 4) { setCurrentColor(3); setGrid(c.getXCoord(),
-		 * c.getYCoord(), getCurrentColor()); } else { setCurrentColor(0);
-		 * setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor()); }
-		 * repaint(); }
-		 */
-
 	}
 
 	/** empty for now */
 	public void mouseExited(MouseEvent mouse) {
+		if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
+			setGrid(preX, preY, 0);
+			repaint();
+		}
 	}
 
 	/** empty for now */
@@ -310,25 +301,29 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseMoved(MouseEvent mouse) {
-	       
-	    /* Controller c = new Controller(this);
-		  c.coordinate(mouse);
-		  if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y){
-		    if(grid[c.getXCoord()][c.getYCoord()]!=1 && grid[c.getXCoord()][c.getYCoord()]!=2){
-		      if(grid[preX][preY] == 3 || grid[preX][preY] == 4){   
-		           setGrid(preX,preY,0);
-		           repaint();
-		      }
-		       if ((getCurrentColor() == 1) && (grid[c.getXCoord()][c.getYCoord()]!=1)){
-			 setGrid(c.getXCoord(),c.getYCoord(),3);
-		       }else if (getCurrentColor() == 2 && (grid[c.getXCoord()][c.getYCoord()]!=2)){
-			 setGrid(c.getXCoord(),c.getYCoord(),4);
-		       }
-		     repaint();
-		     preX = c.getXCoord();
-		     preY = c.getYCoord();
-		    }
-		    }*/
+		Controller c = new Controller(this);
+		c.coordinate(mouse);
+		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
+			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
+				if (grid[preX][preY] == 3 || grid[preX][preY] == 4) {
+					setGrid(preX, preY, 0);
+					repaint();
+				}
+				if ((getCurrentColor() == 1) && (grid[c.getXCoord()][c.getYCoord()] != 1)) {
+					setGrid(c.getXCoord(), c.getYCoord(), 3);
+				} else if (getCurrentColor() == 2 && (grid[c.getXCoord()][c.getYCoord()] != 2)) {
+					setGrid(c.getXCoord(), c.getYCoord(), 4);
+				}
+				repaint();
+				preX = c.getXCoord();
+				preY = c.getYCoord();
+			}
+		} else {
+			if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
+				setGrid(preX, preY, 0);
+				repaint();
+			}
+		}
 	}
 
 	/**
