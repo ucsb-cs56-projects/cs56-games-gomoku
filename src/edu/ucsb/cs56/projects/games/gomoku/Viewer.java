@@ -14,70 +14,67 @@ import java.util.Timer;
 
 /**
  * @author Madhu Kannan CS56 F16
- * @author Colin Garrett CS56 F16
- * Edited to add home screen and end screen. 
+ * @author Colin Garrett CS56 F16 Edited to add home screen and end screen.
  */
-	
 
-public class Viewer extends JPanel
-{
+public class Viewer extends JPanel {
 	/**
-	 * main class for the gomoku game
-	 * creates instance of the program, set up the board
+	 * main class for the gomoku game creates instance of the program, set up
+	 * the board
 	 */
 
-	//Edited F16: main now only contains home screen. Inner classes will contain game and end screens.
-	
-	private JFrame frame;
-    private static JPanel container;
-    public static CardLayout cards;
-    public static HomePanel hPanel;
-    public static InstructionsPanel iPanel;
-    public static Gomoku gsPanel;
-    
-	public static boolean setPlayFreestyle = false;
-    public final static String HOMEPANEL = "Card with home screen";
-    public final static String INSTRUCTIONPANEL = "Card with instructions";
-    public final static String GAMEPANEL = "Card with the game";
+	// Edited F16: main now only contains home screen. Inner classes will
+	// contain game and end screens.
 
-	public static void main(String args[]){
+	private JFrame frame;
+	private static JPanel container;
+	public static CardLayout cards;
+	public static HomePanel hPanel;
+	public static InstructionsPanel iPanel;
+	public static Gomoku gsPanel;
+
+	public static boolean setPlayFreestyle = false;
+	public final static String HOMEPANEL = "Card with home screen";
+	public final static String INSTRUCTIONPANEL = "Card with instructions";
+	public final static String GAMEPANEL = "Card with the game";
+
+	public static void main(String args[]) {
 		Viewer gui = new Viewer();
 		gui.go();
 	}
 
-
 	public void go() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        cards = new CardLayout ();
-        container = new JPanel (cards);
-        
-        hPanel = new HomePanel ();
-        container.add (hPanel, HOMEPANEL);
-        
-        iPanel = new InstructionsPanel ();
-        container.add (iPanel, INSTRUCTIONPANEL);
-        
-        gsPanel = new Gomoku();
-        container.add (gsPanel, GAMEPANEL);
-        
-        frame.add (container);
-        
+
+		cards = new CardLayout();
+		container = new JPanel(cards);
+
+		hPanel = new HomePanel();
+		container.add(hPanel, HOMEPANEL);
+
+		iPanel = new InstructionsPanel();
+		container.add(iPanel, INSTRUCTIONPANEL);
+
+		gsPanel = new Gomoku();
+		container.add(gsPanel, GAMEPANEL);
+
+		frame.add(container);
+
 		frame.setSize(700, 600);
 		frame.setVisible(true);
 	}
-    
-    public static void showHomePanel () {
-        ((CardLayout) (container.getLayout())).show (container, HOMEPANEL);
-    }
-    
-    public static void showInstructionsPanel () {
-        ((CardLayout) (container.getLayout())).show (container, INSTRUCTIONPANEL);
-    }
-    
-    public static void showGamePanel () {
-        ((CardLayout) (container.getLayout())).show (container, GAMEPANEL);
-    }
-    
+
+	public static void showHomePanel() {
+		((CardLayout) (container.getLayout())).show(container, HOMEPANEL);
+	}
+
+	public static void showInstructionsPanel() {
+		((CardLayout) (container.getLayout())).show(container, INSTRUCTIONPANEL);
+	}
+
+	public static void showGamePanel() {
+		((CardLayout) (container.getLayout())).show(container, GAMEPANEL);
+	}
+
 }
