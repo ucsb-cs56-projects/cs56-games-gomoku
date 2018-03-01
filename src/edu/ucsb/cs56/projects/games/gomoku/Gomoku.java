@@ -165,13 +165,11 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 			int win = CheckWins.checkForWin(grid, playStandard);
 			if (win != 0) {
 				JLabel theWinner = new JLabel("something is wrong with the code");
-				System.out.println("Player " + win + " has won");
+				// System.out.println("Player " + win + " has won");
 				if (win == 1) {
 					theWinner = new JLabel("Congratulations, player one, you won!");
-
 				} else {
 					theWinner = new JLabel("Congratulations, player two, you won!");
-
 				}
 				JLabel text = new JLabel("Do you want to play again?");
 				JButton playAgainButton = new JButton("Play Again");
