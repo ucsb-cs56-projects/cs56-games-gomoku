@@ -68,9 +68,9 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 	private int preY;
 	// Colors
 	private Color player1Color = new Color(0, 200, 0); // 1
-	private Color player1HoverColor = new Color(0, 255, 0); // 3
+	private Color player1HoverColor = new Color(204, 255, 102); // 3
 	private Color player2Color = new Color(0, 0, 200); // 2
-	private Color player2HoverColor = new Color(0, 0, 255); // 4
+	private Color player2HoverColor = new Color(102, 204, 255); // 4
 	private Color emptyColor = new Color(200, 200, 200);
 
 	/**
