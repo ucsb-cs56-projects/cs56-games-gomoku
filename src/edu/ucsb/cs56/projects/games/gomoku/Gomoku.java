@@ -246,7 +246,9 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 	// All functions need to be written (even if they are empty)
 	// in order to comply with the MouseListener interface
 	public void mouseClicked(MouseEvent mouse) {
-		Controller c = new Controller(this);
+		int win = CheckWins.checkForWin(grid, playStandard);
+    if (win == 0){
+    Controller c = new Controller(this);
 		c.coordinate(mouse);
 		// if statement to check if within bounds
 		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
@@ -271,6 +273,7 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 						JOptionPane.ERROR_MESSAGE);
 			}
 		}
+   }
 	}
 
 	/** empty for now */
@@ -279,10 +282,13 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseExited(MouseEvent mouse) {
+   int win = CheckWins.checkForWin(grid, playStandard);
+   if (win == 0){
 		if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
 			setGrid(preX, preY, 0);
 			repaint();
 		}
+   }
 	}
 
 	/** empty for now */
@@ -299,6 +305,8 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseMoved(MouseEvent mouse) {
+  int win = CheckWins.checkForWin(grid, playStandard);
+  if (win == 0){
 		Controller c = new Controller(this);
 		c.coordinate(mouse);
 		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
@@ -322,6 +330,7 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 				repaint();
 			}
 		}
+   }
 	}
 
 	/**
