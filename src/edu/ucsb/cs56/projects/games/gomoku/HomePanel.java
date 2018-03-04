@@ -19,11 +19,13 @@ public class HomePanel extends JPanel {
 		JButton getGameButton = new JButton("Play Two-Player!");
 		getGameButton.addActionListener((x) -> {
 			Viewer.showGamePanel();
+			Viewer.multiPlayer = true;
 		});
    
     JButton playComputer = new JButton("Play Single-Player!");
     playComputer.addActionListener((x) -> {
-      Viewer.showGamePanel();
+      Viewer.showSingleGamePanel();
+      Viewer.multiPlayer = false;
     });
 		// When clicked, this button takes user to instructions.
 		JButton getInstructionsButton = new JButton("Instructions");
