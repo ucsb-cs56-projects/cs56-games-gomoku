@@ -131,14 +131,14 @@ public class CheckWins {
 				// OR Standard Gomoku, which requires EXACTLY five in a
 				// row.
 				if (maxInARow == 5 && playStandard) {
-				    if (x < 15 && y < 15){
-					if( x == 14 || y == 14){
-					    return lastColor;
-					} else if( boardToCheck[x + 1][y + 1] != lastColor){
-						return lastColor;
+					if (x < 15 && y < 15) {
+						if (x == 14 || y == 14) {
+							return lastColor;
+						} else if (boardToCheck[x + 1][y + 1] != lastColor) {
+							return lastColor;
+						}
 					}
-				    }
-					
+
 				}
 
 				// Update lastcolor
@@ -189,14 +189,14 @@ public class CheckWins {
 				// OR Standard Gomoku, which requires EXACTLY five in a
 				// row.
 				if (maxInARow == 5 && playStandard) {
-				    if (x < 15){
-					if(x == 14){
-					    return lastColor;
-					} else if (boardToCheck[x + 1][y] != lastColor){
-						return lastColor;
+					if (x < 15) {
+						if (x == 14) {
+							return lastColor;
+						} else if (boardToCheck[x + 1][y] != lastColor) {
+							return lastColor;
+						}
 					}
-				    }
-					
+
 				}
 
 				// Update lastcolor

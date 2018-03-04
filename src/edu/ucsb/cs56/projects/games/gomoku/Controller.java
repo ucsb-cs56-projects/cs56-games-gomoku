@@ -19,7 +19,7 @@ public class Controller {
 
 	// declare the variables
 	Gomoku panel = new Gomoku();
-    GomokuSinglePlayer singlePanel = new GomokuSinglePlayer();
+	GomokuSinglePlayer singlePanel = new GomokuSinglePlayer();
 	int xCoord, yCoord;
 
 	/**
@@ -35,7 +35,8 @@ public class Controller {
 		yCoord = 0;
 		this.panel = panel; // for later uses
 	}
-public Controller(GomokuSinglePlayer singlePanel) {
+
+	public Controller(GomokuSinglePlayer singlePanel) {
 		// set the default to zero
 		xCoord = 0;
 		yCoord = 0;

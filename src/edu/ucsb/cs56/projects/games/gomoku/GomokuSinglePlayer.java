@@ -16,6 +16,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.lang.Math;
 import javax.swing.Timer;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -70,7 +71,7 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 	private Color player1Color = new Color(0, 200, 0); // 1
 	private Color player1HoverColor = new Color(204, 255, 102); // 3
 	private Color player2Color = new Color(0, 0, 200); // 2
-	private Color player2HoverColor = new Color(102, 204, 255); // 4
+	// private Color player2HoverColor = new Color(102, 204, 255); // 4
 	private Color emptyColor = new Color(200, 200, 200);
 
 	/**
@@ -139,20 +140,6 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 		this.add(title);
 		title.setBounds(20, boardSize.y * tileSize + 20, 550, 150);
 
-		/*undoButton = new JButton("Undo Move");
-		undoButton.addActionListener((x) -> {
-			turn = grid[xc][yc];
-			setGrid(xc, yc, 0);
-			repaint();
-			if (turn == 2) {
-				setCurrentColor(2);
-			} else {
-				setCurrentColor(1);
-			}
-		});
-		this.add(undoButton);
-		undoButton.setBounds(boardSize.x * tileSize + 50, boardSize.y / 5 + 120, 200, 50);*/
-
 	}
 
 	/**
@@ -165,11 +152,10 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 			int win = CheckWins.checkForWin(grid, playStandard);
 			if (win != 0) {
 				JLabel theWinner = new JLabel("something is wrong with the code");
-				// System.out.println("Player " + win + " has won");
 				if (win == 1) {
 					theWinner = new JLabel("Congratulations, player one, you won!");
 				} else {
-					theWinner = new JLabel("Congratulations, player two, you won!");
+					theWinner = new JLabel("Sorry, player one, you lost!");
 				}
 				JLabel text = new JLabel("Do you want to play again?");
 				JButton playAgainButton = new JButton("Play Again");
@@ -207,7 +193,7 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 	}
 
 	/**
-	 * the method to set the color of each grid and then switches player
+	 * the method to set the color of each grid 
 	 */
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
@@ -220,26 +206,11 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 					g2.setColor(player2Color);
 				} else if (grid[x][y] == 3) {
 					g2.setColor(player1HoverColor);
-				} else if (grid[x][y] == 4) {
-					g2.setColor(player2HoverColor);
 				} else {
 					g2.setColor(emptyColor);
 				}
 				g2.fillOval(x * tileSize, y * tileSize, tileSize, tileSize);
 			}
-		}
-		if (getCurrentColor() == 1) {
-			Stroke thick = new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL);
-			g2.setStroke(thick);
-			g2.clearRect(boardSize.x * tileSize + 10, boardSize.y * tileSize / 2 - 10, 500, tileSize);
-			g2.setColor(player1Color);
-			g2.drawString("Player one, it is your turn. You are green.", boardSize.x * tileSize + 10,
-					boardSize.y * tileSize / 2 + 50);
-		} else if (getCurrentColor() == 2) {
-			g2.clearRect(boardSize.x * tileSize + 10, boardSize.y * tileSize / 2 - 10, 500, tileSize);
-			g2.setColor(player2Color);
-			g2.drawString("Player two, it is your turn. You are blue.", boardSize.x * tileSize + 10,
-					boardSize.y * tileSize / 2 + 50);
 		}
 	}
 
@@ -247,33 +218,30 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 	// in order to comply with the MouseListener interface
 	public void mouseClicked(MouseEvent mouse) {
 		int win = CheckWins.checkForWin(grid, playStandard);
-    if (win == 0){
-    Controller c = new Controller(this);
-		c.coordinate(mouse);
-		// if statement to check if within bounds
-		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
-			// checks if there is already a piece on the spot
-			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
-				xc = c.getXCoord();
-				yc = c.getYCoord();
-				// if no piece then colors that piece
-				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
-				// Switch player
-				if (getCurrentColor() == 1) {
+		if (win == 0) {
+			Controller c = new Controller(this);
+			c.coordinate(mouse);
+			// if statement to check if within bounds
+			if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
+				// checks if there is already a piece on the spot
+				if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
+					xc = c.getXCoord();
+					yc = c.getYCoord();
+					// if no piece then colors that piece
+					setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
 					setCurrentColor(2);
-				} else {
+					computerMove();
 					setCurrentColor(1);
+					repaint();
+				} else {
+					// throws error message if they try to put their piece on
+					// another
+					// player's
+					JOptionPane.showMessageDialog(null, "You can't put your pieces over other players!", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				repaint();
-			} else {
-				// throws error message if they try to put their piece on
-				// another
-				// player's
-				JOptionPane.showMessageDialog(null, "You can't put your pieces over other players!", "Error",
-						JOptionPane.ERROR_MESSAGE);
 			}
 		}
-   }
 	}
 
 	/** empty for now */
@@ -282,13 +250,13 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 
 	/** empty for now */
 	public void mouseExited(MouseEvent mouse) {
-   int win = CheckWins.checkForWin(grid, playStandard);
-   if (win == 0){
-		if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
-			setGrid(preX, preY, 0);
-			repaint();
+		int win = CheckWins.checkForWin(grid, playStandard);
+		if (win == 0) {
+			if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
+				setGrid(preX, preY, 0);
+				repaint();
+			}
 		}
-   }
 	}
 
 	/** empty for now */
@@ -305,32 +273,50 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 
 	/** empty for now */
 	public void mouseMoved(MouseEvent mouse) {
-  int win = CheckWins.checkForWin(grid, playStandard);
-  if (win == 0){
-		Controller c = new Controller(this);
-		c.coordinate(mouse);
-		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
-			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
-				if (grid[preX][preY] == 3 || grid[preX][preY] == 4) {
+		int win = CheckWins.checkForWin(grid, playStandard);
+		if (win == 0) {
+			Controller c = new Controller(this);
+			c.coordinate(mouse);
+			if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
+				if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
+					if (grid[preX][preY] == 3 || grid[preX][preY] == 4) {
+						setGrid(preX, preY, 0);
+						repaint();
+					}
+					if ((getCurrentColor() == 1) && (grid[c.getXCoord()][c.getYCoord()] != 1)) {
+						setGrid(c.getXCoord(), c.getYCoord(), 3);
+					} else if (getCurrentColor() == 2 && (grid[c.getXCoord()][c.getYCoord()] != 2)) {
+						setGrid(c.getXCoord(), c.getYCoord(), 4);
+					}
+					repaint();
+					preX = c.getXCoord();
+					preY = c.getYCoord();
+				}
+			} else {
+				if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
 					setGrid(preX, preY, 0);
 					repaint();
 				}
-				if ((getCurrentColor() == 1) && (grid[c.getXCoord()][c.getYCoord()] != 1)) {
-					setGrid(c.getXCoord(), c.getYCoord(), 3);
-				} else if (getCurrentColor() == 2 && (grid[c.getXCoord()][c.getYCoord()] != 2)) {
-					setGrid(c.getXCoord(), c.getYCoord(), 4);
-				}
-				repaint();
-				preX = c.getXCoord();
-				preY = c.getYCoord();
-			}
-		} else {
-			if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
-				setGrid(preX, preY, 0);
-				repaint();
 			}
 		}
-   }
+	}
+
+	public void computerMove() {
+	    int win = CheckWins.checkForWin(grid, playStandard);
+		if (win != 1) {
+		int x = (int) (Math.random() * boardSize.x);
+		int y = (int) (Math.random() * boardSize.y);
+		boolean empty = true;
+		while (empty) {
+			if (grid[x][y] != 1 && grid[x][y] != 2) {
+				setGrid(x, y, 2);
+				empty = false;
+			} else {
+				x = (int) (Math.random() * boardSize.x);
+				y = (int) (Math.random() * boardSize.y);
+			}
+		}
+		}
 	}
 
 	/**

@@ -21,12 +21,12 @@ public class HomePanel extends JPanel {
 			Viewer.showGamePanel();
 			Viewer.multiPlayer = true;
 		});
-   
-    JButton playComputer = new JButton("Play Single-Player!");
-    playComputer.addActionListener((x) -> {
-      Viewer.showSingleGamePanel();
-      Viewer.multiPlayer = false;
-    });
+
+		JButton playComputer = new JButton("Play Single-Player!");
+		playComputer.addActionListener((x) -> {
+			Viewer.showSingleGamePanel();
+			Viewer.multiPlayer = false;
+		});
 		// When clicked, this button takes user to instructions.
 		JButton getInstructionsButton = new JButton("Instructions");
 		getInstructionsButton.addActionListener((x) -> {
@@ -53,7 +53,7 @@ public class HomePanel extends JPanel {
 		JPanel SettingsPanel = new JPanel();
 
 		OptionsPanel.add(getGameButton);
-    OptionsPanel.add(playComputer);
+		OptionsPanel.add(playComputer);
 		OptionsPanel.add(getInstructionsButton);
 
 		SettingsPanel.add(SettingsTitle);
@@ -65,7 +65,7 @@ public class HomePanel extends JPanel {
 		// adding everything to the panel
 		this.add(title);
 		this.add(getGameButton);
-    this.add(playComputer);
+		this.add(playComputer);
 		this.add(getInstructionsButton);
 		this.add(OptionsPanel);
 		this.add(SettingsPanel);

@@ -32,14 +32,14 @@ public class Viewer extends JPanel {
 	public static HomePanel hPanel;
 	public static InstructionsPanel iPanel;
 	public static Gomoku gsPanel;
-    public static GomokuSinglePlayer SinglePlayerPanel;
+	public static GomokuSinglePlayer SinglePlayerPanel;
 
 	public static boolean setPlayFreestyle = false;
-    public static boolean multiPlayer = false;
+	public static boolean multiPlayer = false;
 	public final static String HOMEPANEL = "Card with home screen";
 	public final static String INSTRUCTIONPANEL = "Card with instructions";
 	public final static String GAMEPANEL = "Card with the game";
-    public final static String SINGLEGAMEPANEL = "Card with single player game";
+	public final static String SINGLEGAMEPANEL = "Card with single player game";
 
 	public static void main(String args[]) {
 		Viewer gui = new Viewer();
@@ -82,9 +82,9 @@ public class Viewer extends JPanel {
 	public static void showGamePanel() {
 		((CardLayout) (container.getLayout())).show(container, GAMEPANEL);
 	}
-    	public static void showSingleGamePanel() {
+
+	public static void showSingleGamePanel() {
 		((CardLayout) (container.getLayout())).show(container, SINGLEGAMEPANEL);
 	}
-
 
 }

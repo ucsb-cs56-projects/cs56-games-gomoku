@@ -247,33 +247,33 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 	// in order to comply with the MouseListener interface
 	public void mouseClicked(MouseEvent mouse) {
 		int win = CheckWins.checkForWin(grid, playStandard);
-    if (win == 0){
-    Controller c = new Controller(this);
-		c.coordinate(mouse);
-		// if statement to check if within bounds
-		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
-			// checks if there is already a piece on the spot
-			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
-				xc = c.getXCoord();
-				yc = c.getYCoord();
-				// if no piece then colors that piece
-				setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
-				// Switch player
-				if (getCurrentColor() == 1) {
-					setCurrentColor(2);
+		if (win == 0) {
+			Controller c = new Controller(this);
+			c.coordinate(mouse);
+			// if statement to check if within bounds
+			if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
+				// checks if there is already a piece on the spot
+				if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
+					xc = c.getXCoord();
+					yc = c.getYCoord();
+					// if no piece then colors that piece
+					setGrid(c.getXCoord(), c.getYCoord(), getCurrentColor());
+					// Switch player
+					if (getCurrentColor() == 1) {
+						setCurrentColor(2);
+					} else {
+						setCurrentColor(1);
+					}
+					repaint();
 				} else {
-					setCurrentColor(1);
+					// throws error message if they try to put their piece on
+					// another
+					// player's
+					JOptionPane.showMessageDialog(null, "You can't put your pieces over other players!", "Error",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				repaint();
-			} else {
-				// throws error message if they try to put their piece on
-				// another
-				// player's
-				JOptionPane.showMessageDialog(null, "You can't put your pieces over other players!", "Error",
-						JOptionPane.ERROR_MESSAGE);
 			}
 		}
-   }
 	}
 
 	/** empty for now */
@@ -282,13 +282,13 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseExited(MouseEvent mouse) {
-   int win = CheckWins.checkForWin(grid, playStandard);
-   if (win == 0){
-		if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
-			setGrid(preX, preY, 0);
-			repaint();
+		int win = CheckWins.checkForWin(grid, playStandard);
+		if (win == 0) {
+			if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
+				setGrid(preX, preY, 0);
+				repaint();
+			}
 		}
-   }
 	}
 
 	/** empty for now */
@@ -305,32 +305,32 @@ public class Gomoku extends JPanel implements MouseListener, MouseMotionListener
 
 	/** empty for now */
 	public void mouseMoved(MouseEvent mouse) {
-  int win = CheckWins.checkForWin(grid, playStandard);
-  if (win == 0){
-		Controller c = new Controller(this);
-		c.coordinate(mouse);
-		if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
-			if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
-				if (grid[preX][preY] == 3 || grid[preX][preY] == 4) {
+		int win = CheckWins.checkForWin(grid, playStandard);
+		if (win == 0) {
+			Controller c = new Controller(this);
+			c.coordinate(mouse);
+			if (c.getXCoord() < boardSize.x && c.getYCoord() < boardSize.y) {
+				if (grid[c.getXCoord()][c.getYCoord()] != 1 && grid[c.getXCoord()][c.getYCoord()] != 2) {
+					if (grid[preX][preY] == 3 || grid[preX][preY] == 4) {
+						setGrid(preX, preY, 0);
+						repaint();
+					}
+					if ((getCurrentColor() == 1) && (grid[c.getXCoord()][c.getYCoord()] != 1)) {
+						setGrid(c.getXCoord(), c.getYCoord(), 3);
+					} else if (getCurrentColor() == 2 && (grid[c.getXCoord()][c.getYCoord()] != 2)) {
+						setGrid(c.getXCoord(), c.getYCoord(), 4);
+					}
+					repaint();
+					preX = c.getXCoord();
+					preY = c.getYCoord();
+				}
+			} else {
+				if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
 					setGrid(preX, preY, 0);
 					repaint();
 				}
-				if ((getCurrentColor() == 1) && (grid[c.getXCoord()][c.getYCoord()] != 1)) {
-					setGrid(c.getXCoord(), c.getYCoord(), 3);
-				} else if (getCurrentColor() == 2 && (grid[c.getXCoord()][c.getYCoord()] != 2)) {
-					setGrid(c.getXCoord(), c.getYCoord(), 4);
-				}
-				repaint();
-				preX = c.getXCoord();
-				preY = c.getYCoord();
-			}
-		} else {
-			if (grid[preX][preY] != 1 && grid[preX][preY] != 2) {
-				setGrid(preX, preY, 0);
-				repaint();
 			}
 		}
-   }
 	}
 
 	/**
