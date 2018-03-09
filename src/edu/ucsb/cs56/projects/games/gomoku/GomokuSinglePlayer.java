@@ -322,12 +322,12 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
  
   public void playMove(){
     int currentBest = -1000;
-    int bestX = 0;
-    int bestY = 0;
+    int bestX = -1;
+    int bestY = -1;
     int [][] gridCopy = new int[boardSize.x][boardSize.y];
     int score = -1000;
     for (int i = 0; i < boardSize.x; i++){
-      for (int j = 0; i < boardSize.y; j++){
+      for (int j = 0; j < boardSize.y; j++){
         if (grid[i][j] != 1 && grid[i][j] != 2){
           for (int a = 0; a < boardSize.x; a++){
             for (int b = 0; b < boardSize.y; b++){
