@@ -356,42 +356,42 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 						if (board[i][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i][j - 1] == 2) {
-							score += 1;
+							score += 3;
 						}
 						if (board[i + 1][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j - 1] == 2) {
-							score += 1;
+							score += 3;
 						}
 						if (board[i + 1][j] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j] == 2) {
-							score += 1;
+							score += 3;
 						}
 						if (board[i + 1][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j + 1] == 2) {
-							score += 1;
+							score += 3;
 						}
 						if (board[i][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i][j + 1] == 2) {
-							score += 1;
+							score += 3;
 						}
 						if (board[i - 1][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j + 1] == 2) {
-							score += 1;
+							score += 3;
 						}
 						if (board[i - 1][j] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j] == 2) {
-							score += 1;
+							score += 3;
 						}
 						if (board[i - 1][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j - 1] == 2) {
-							score += 1;
+							score += 3;
 						}
 					}
 					// upper left corner
@@ -471,27 +471,27 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 						if (board[i + 1][j] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i + 1][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j + 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i][j + 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i - 1][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j + 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i - 1][j] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j] == 2) {
-							score += 1;
+							score += 2;
 						}
 					}
 					// right edge minus corners
@@ -499,27 +499,27 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 						if (board[i][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i][j - 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i][j + 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i - 1][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j + 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i - 1][j] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i - 1][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j - 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 					}
 					// bottom edge minus corners
@@ -527,27 +527,27 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 						if (board[i][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i][j - 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i + 1][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j - 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i + 1][j] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i - 1][j] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i - 1][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i - 1][j - 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 					}
 					// left edge minus corners
@@ -555,27 +555,27 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 						if (board[i][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i][j - 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i + 1][j - 1] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j - 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i + 1][j] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i + 1][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i + 1][j + 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 						if (board[i][j + 1] == 1) {
 							score -= 1;
 						} else if (board[i][j + 1] == 2) {
-							score += 1;
+							score += 2;
 						}
 					}
 				}
@@ -585,8 +585,18 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
     }
     
 	public int evaluateBoard(int[][] board) {
+	    int result=0;
+	    int win = CheckWins.checkForWin(grid, playStandard);
+	    if (win == 2){
+		result+=1000;
+		return result;
+	    }
+	    else if (win == 1){
+		result-=1000;
+		return result;
+	    }
 	    int nearbyPoints = nearbyPlayersPoints(board);
-	    int result = nearbyPoints;
+	    result+= nearbyPoints;
 	    return result;
 	}
 
