@@ -320,265 +320,266 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 	}
 
 	public void playMove() {
-	    	int win = CheckWins.checkForWin(grid, playStandard);
-		if (win != 1){
-		int currentBest = -1000;
-		int bestX = -1;
-		int bestY = -1;
-		int[][] gridCopy = new int[boardSize.x][boardSize.y];
-		int score = -1000;
-		for (int i = 0; i < boardSize.x; i++) {
-			for (int j = 0; j < boardSize.y; j++) {
-				if (grid[i][j] != 1 && grid[i][j] != 2) {
-					for (int a = 0; a < boardSize.x; a++) {
-						for (int b = 0; b < boardSize.y; b++) {
-							gridCopy[a][b] = grid[a][b];
+		int win = CheckWins.checkForWin(grid, playStandard);
+		if (win != 1) {
+			int currentBest = -1000;
+			int bestX = -1;
+			int bestY = -1;
+			int[][] gridCopy = new int[boardSize.x][boardSize.y];
+			int score = -1000;
+			for (int i = 0; i < boardSize.x; i++) {
+				for (int j = 0; j < boardSize.y; j++) {
+					if (grid[i][j] != 1 && grid[i][j] != 2) {
+						for (int a = 0; a < boardSize.x; a++) {
+							for (int b = 0; b < boardSize.y; b++) {
+								gridCopy[a][b] = grid[a][b];
+							}
 						}
-					}
-					gridCopy[i][j] = 2;
-					score = evaluateBoard(gridCopy);
-					//System.out.println("i:"+i+" " + "j:" + j + " score:" + score + "current best:" + currentBest);
-					if (score > currentBest) {
-						currentBest = score;
-						bestX = i;
-						bestY = j;
+						gridCopy[i][j] = 2;
+						score = evaluateBoard(gridCopy);
+						// System.out.println("i:"+i+" " + "j:" + j + " score:"
+						// + score + "current best:" + currentBest);
+						if (score > currentBest) {
+							currentBest = score;
+							bestX = i;
+							bestY = j;
+						}
 					}
 				}
 			}
-		}
-		setGrid(bestX, bestY, 2);
+			setGrid(bestX, bestY, 2);
 		}
 	}
 
-    public int nearbyPlayersPoints(int[][] board){
-	int score = 0;
+	public int nearbyPlayersPoints(int[][] board) {
+		int score = 0;
 		for (int i = 0; i < boardSize.x; i++) {
 			for (int j = 0; j < boardSize.y; j++) {
 				if (board[i][j] == 2) {
 					// no corner or edge piece
 					if (i != 0 && i != boardSize.x - 1 && j != 0 && j != boardSize.y - 1) {
-					    /*if (board[i][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j - 1] == 2) {
+						/*
+						 * if (board[i][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i][j - 1] == 2) {
 							score += 3;
 						}
-					    /*if (board[i + 1][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j - 1] == 2) {
+						/*
+						 * if (board[i + 1][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j - 1] == 2) {
 							score += 3;
 						}
-					    /*if (board[i + 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j] == 2) {
+						/*
+						 * if (board[i + 1][j] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j] == 2) {
 							score += 3;
 						}
-					    /*if (board[i + 1][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j + 1] == 2) {
+						/*
+						 * if (board[i + 1][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j + 1] == 2) {
 							score += 3;
 						}
-					    /*if (board[i][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j + 1] == 2) {
+						/*
+						 * if (board[i][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i][j + 1] == 2) {
 							score += 3;
 						}
-					    /*if (board[i - 1][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j + 1] == 2) {
+						/*
+						 * if (board[i - 1][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j + 1] == 2) {
 							score += 3;
 						}
-					    /*if (board[i - 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j] == 2) {
+						/*
+						 * if (board[i - 1][j] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j] == 2) {
 							score += 3;
 						}
-					    /*if (board[i - 1][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j - 1] == 2) {
+						/*
+						 * if (board[i - 1][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j - 1] == 2) {
 							score += 3;
 						}
 					}
 					// upper left corner
 					else if (i == 0 && j == 0) {
-					    /*if (board[i + 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j] == 2) {
+						/*
+						 * if (board[i + 1][j] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j] == 2) {
 							score += 1;
 						}
-					    /*if (board[i + 1][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j + 1] == 2) {
+						/*
+						 * if (board[i + 1][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j + 1] == 2) {
 							score += 1;
 						}
-					    /*if (board[i][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j + 1] == 2) {
+						/*
+						 * if (board[i][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i][j + 1] == 2) {
 							score += 1;
 						}
 					}
 					// upper right corner
 					else if (i == boardSize.x - 1 && j == 0) {
-					    /*if (board[i][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j + 1] == 2) {
+						/*
+						 * if (board[i][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i][j + 1] == 2) {
 							score += 1;
 						}
-					    /*if (board[i - 1][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j + 1] == 2) {
+						/*
+						 * if (board[i - 1][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j + 1] == 2) {
 							score += 1;
 						}
-					    /*if (board[i - 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j] == 2) {
+						/*
+						 * if (board[i - 1][j] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j] == 2) {
 							score += 1;
 						}
 					}
 					// lower left corner
 					else if (i == 0 && j == boardSize.y - 1) {
-					    /*if (board[i][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j - 1] == 2) {
+						/*
+						 * if (board[i][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i][j - 1] == 2) {
 							score += 1;
 						}
-					    /*if (board[i + 1][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j - 1] == 2) {
+						/*
+						 * if (board[i + 1][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j - 1] == 2) {
 							score += 1;
 						}
-					    /*if (board[i + 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j] == 2) {
+						/*
+						 * if (board[i + 1][j] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j] == 2) {
 							score += 1;
 						}
 					}
 					// lower right corner
 					else if (i == boardSize.x - 1 && j == boardSize.y - 1) {
-					    /*if (board[i][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j - 1] == 2) {
+						/*
+						 * if (board[i][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i][j - 1] == 2) {
 							score += 1;
 						}
-					    /*if (board[i - 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j] == 2) {
+						/*
+						 * if (board[i - 1][j] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j] == 2) {
 							score += 1;
 						}
-					    /*if (board[i - 1][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j - 1] == 2) {
+						/*
+						 * if (board[i - 1][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j - 1] == 2) {
 							score += 1;
 						}
 					}
 					// top edge minus corners
 					else if (j == 0 && i != 0 && i != boardSize.x - 1) {
-					    /*if (board[i + 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j] == 2) {
+						/*
+						 * if (board[i + 1][j] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j] == 2) {
 							score += 2;
 						}
-					    /*if (board[i + 1][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j + 1] == 2) {
+						/*
+						 * if (board[i + 1][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j + 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j + 1] == 2) {
+						/*
+						 * if (board[i][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i][j + 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i - 1][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j + 1] == 2) {
+						/*
+						 * if (board[i - 1][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j + 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i - 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j] == 2) {
+						/*
+						 * if (board[i - 1][j] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j] == 2) {
 							score += 2;
 						}
 					}
 					// right edge minus corners
 					else if (i == boardSize.x - 1 && j != 0 && j != boardSize.y - 1) {
-					    /*if (board[i][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j - 1] == 2) {
+						/*
+						 * if (board[i][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i][j - 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j + 1] == 2) {
+						/*
+						 * if (board[i][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i][j + 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i - 1][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j + 1] == 2) {
+						/*
+						 * if (board[i - 1][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j + 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i - 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j] == 2) {
+						/*
+						 * if (board[i - 1][j] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j] == 2) {
 							score += 2;
 						}
-					    /*if (board[i - 1][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j - 1] == 2) {
+						/*
+						 * if (board[i - 1][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j - 1] == 2) {
 							score += 2;
 						}
 					}
 					// bottom edge minus corners
 					else if (i != 0 && i != boardSize.x - 1 && j == boardSize.y - 1) {
-					    /*if (board[i][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j - 1] == 2) {
+						/*
+						 * if (board[i][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i][j - 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i + 1][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j - 1] == 2) {
+						/*
+						 * if (board[i + 1][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j - 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i + 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j] == 2) {
+						/*
+						 * if (board[i + 1][j] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j] == 2) {
 							score += 2;
 						}
-					    /*if (board[i - 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j] == 2) {
+						/*
+						 * if (board[i - 1][j] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j] == 2) {
 							score += 2;
 						}
-					    /*if (board[i - 1][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i - 1][j - 1] == 2) {
+						/*
+						 * if (board[i - 1][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i - 1][j - 1] == 2) {
 							score += 2;
 						}
 					}
 					// left edge minus corners
 					else if (i == 0 && j != 0 && j != boardSize.y - 1) {
-					    /*if (board[i][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j - 1] == 2) {
+						/*
+						 * if (board[i][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i][j - 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i + 1][j - 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j - 1] == 2) {
+						/*
+						 * if (board[i + 1][j - 1] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j - 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i + 1][j] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j] == 2) {
+						/*
+						 * if (board[i + 1][j] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j] == 2) {
 							score += 2;
 						}
-					    /*if (board[i + 1][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i + 1][j + 1] == 2) {
+						/*
+						 * if (board[i + 1][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i + 1][j + 1] == 2) {
 							score += 2;
 						}
-					    /*if (board[i][j + 1] == 1) {
-							score -= 1;
-							} else*/ if (board[i][j + 1] == 2) {
+						/*
+						 * if (board[i][j + 1] == 1) { score -= 1; } else
+						 */ if (board[i][j + 1] == 2) {
 							score += 2;
 						}
 					}
@@ -586,49 +587,283 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 			}
 		}
 		return score;
-    }
-
-    public int middlePoints(int [][] board){
-	int score = 0;
-	for (int i = 0; i < boardSize.x; i++) {
-	    for (int j = 0; j < boardSize.y; j++) {
-		if(i>0 && i<14 && j>0 && j<14){
-		    if(board[i][j]==2){
-		    score+=20;
-		    }
-		}
-	    }
 	}
-	return score;
-    }
 
-    /*public void firstMove(int [][]board){
-	for (int i = 0; i < boardSize.x; i++) {
-	    for (int j = 0; j < boardSize.y; j++) {
-		if(board[i][j] == 1 || board[i][j] == 2){
-		    break;
-		}else{
-		    setGrid(boardSize.x/2,boardSize.y/2,2);
+	public int nearbyPlayersPointsWithMinus(int[][] board) {
+		int score = 0;
+		for (int i = 0; i < boardSize.x; i++) {
+			for (int j = 0; j < boardSize.y; j++) {
+				if (board[i][j] == 2) {
+					// no corner or edge piece
+					if (i != 0 && i != boardSize.x - 1 && j != 0 && j != boardSize.y - 1) {
+						if (board[i][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i][j - 1] == 2) {
+							score += 3;
+						}
+						if (board[i + 1][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j - 1] == 2) {
+							score += 3;
+						}
+						if (board[i + 1][j] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j] == 2) {
+							score += 3;
+						}
+						if (board[i + 1][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j + 1] == 2) {
+							score += 3;
+						}
+						if (board[i][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i][j + 1] == 2) {
+							score += 3;
+						}
+						if (board[i - 1][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j + 1] == 2) {
+							score += 3;
+						}
+						if (board[i - 1][j] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j] == 2) {
+							score += 3;
+						}
+						if (board[i - 1][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j - 1] == 2) {
+							score += 3;
+						}
+					}
+					// upper left corner
+					else if (i == 0 && j == 0) {
+						if (board[i + 1][j] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j] == 2) {
+							score += 1;
+						}
+						if (board[i + 1][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j + 1] == 2) {
+							score += 1;
+						}
+						if (board[i][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i][j + 1] == 2) {
+							score += 1;
+						}
+					}
+					// upper right corner
+					else if (i == boardSize.x - 1 && j == 0) {
+						if (board[i][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i][j + 1] == 2) {
+							score += 1;
+						}
+						if (board[i - 1][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j + 1] == 2) {
+							score += 1;
+						}
+						if (board[i - 1][j] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j] == 2) {
+							score += 1;
+						}
+					}
+					// lower left corner
+					else if (i == 0 && j == boardSize.y - 1) {
+						if (board[i][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i][j - 1] == 2) {
+							score += 1;
+						}
+						if (board[i + 1][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j - 1] == 2) {
+							score += 1;
+						}
+						if (board[i + 1][j] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j] == 2) {
+							score += 1;
+						}
+					}
+					// lower right corner
+					else if (i == boardSize.x - 1 && j == boardSize.y - 1) {
+						if (board[i][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i][j - 1] == 2) {
+							score += 1;
+						}
+						if (board[i - 1][j] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j] == 2) {
+							score += 1;
+						}
+						if (board[i - 1][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j - 1] == 2) {
+							score += 1;
+						}
+					}
+					// top edge minus corners
+					else if (j == 0 && i != 0 && i != boardSize.x - 1) {
+						if (board[i + 1][j] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j] == 2) {
+							score += 2;
+						}
+						if (board[i + 1][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j + 1] == 2) {
+							score += 2;
+						}
+						if (board[i][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i][j + 1] == 2) {
+							score += 2;
+						}
+						if (board[i - 1][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j + 1] == 2) {
+							score += 2;
+						}
+						if (board[i - 1][j] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j] == 2) {
+							score += 2;
+						}
+					}
+					// right edge minus corners
+					else if (i == boardSize.x - 1 && j != 0 && j != boardSize.y - 1) {
+						if (board[i][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i][j - 1] == 2) {
+							score += 2;
+						}
+						if (board[i][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i][j + 1] == 2) {
+							score += 2;
+						}
+						if (board[i - 1][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j + 1] == 2) {
+							score += 2;
+						}
+						if (board[i - 1][j] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j] == 2) {
+							score += 2;
+						}
+						if (board[i - 1][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j - 1] == 2) {
+							score += 2;
+						}
+					}
+					// bottom edge minus corners
+					else if (i != 0 && i != boardSize.x - 1 && j == boardSize.y - 1) {
+						if (board[i][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i][j - 1] == 2) {
+							score += 2;
+						}
+						if (board[i + 1][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j - 1] == 2) {
+							score += 2;
+						}
+						if (board[i + 1][j] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j] == 2) {
+							score += 2;
+						}
+						if (board[i - 1][j] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j] == 2) {
+							score += 2;
+						}
+						if (board[i - 1][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i - 1][j - 1] == 2) {
+							score += 2;
+						}
+					}
+					// left edge minus corners
+					else if (i == 0 && j != 0 && j != boardSize.y - 1) {
+						if (board[i][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i][j - 1] == 2) {
+							score += 2;
+						}
+						if (board[i + 1][j - 1] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j - 1] == 2) {
+							score += 2;
+						}
+						if (board[i + 1][j] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j] == 2) {
+							score += 2;
+						}
+						if (board[i + 1][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i + 1][j + 1] == 2) {
+							score += 2;
+						}
+						if (board[i][j + 1] == 1) {
+							score -= 1;
+						} else if (board[i][j + 1] == 2) {
+							score += 2;
+						}
+					}
+				}
+			}
 		}
-	    }
-	    break;
+		return score;
 	}
-	}*/
+
+	public int middlePoints(int[][] board) {
+		int score = 0;
+		for (int i = 0; i < boardSize.x; i++) {
+			for (int j = 0; j < boardSize.y; j++) {
+				if (board[i][j] == 2) {
+					if ((i > 0 && i < 5 && j > 0 && j < 5) || (i > 0 && i < 5 && j > 9 && j < 14)
+							|| (i > 9 && i < 14 && j > 0 && j < 5) || (i > 9 && i < 14 && j > 9 && j < 14)) {
+						score += 15;
+						/*
+						 * } else if((i>4 && i<7 && j>4 && j<7)||(i>4 && i<7 &&
+						 * j>7 && j<10)||(i>7 && i<10 && j>4 && j<7)||(i>7 &&
+						 * i<10 && j>7 && j<10)){ score +=40; }
+						 */
+					} else if (i > 4 && i < 10 && j > 4 && j < 10) {
+						score += 25;
+					}
+				}
+			}
+		}
+		return score;
+	}
+
 	public int evaluateBoard(int[][] board) {
-	    int result=0;
-	    int win = CheckWins.checkForWin(grid, playStandard);
-	    if (win == 2){
-		result+=1000;
+		int result = 0;
+		int win = CheckWins.checkForWin(board, playStandard);
+		if (win == 2) {
+			result += 100000;
+			return result;
+		}
+		/*
+		 * else if (win == 1){ result-=1000; return result; }
+		 */
+		// int nearbyPoints = nearbyPlayersPoints(board);
+		int nearbyPoints = nearbyPlayersPointsWithMinus(board);
+		int middlePoints = middlePoints(board);
+		result += (4 * nearbyPoints + middlePoints);
 		return result;
-	    }
-	    /* else if (win == 1){
-		result-=1000;
-		return result;
-		}*/
-	    int nearbyPoints = nearbyPlayersPoints(board);
-	    int middlePoints = middlePoints(board);
-	    result+= (nearbyPoints + middlePoints*2);
-	    return result;
 	}
 
 	/**
