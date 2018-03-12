@@ -320,6 +320,8 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 	}
 
 	public void playMove() {
+	    	int win = CheckWins.checkForWin(grid, playStandard);
+		if (win != 1){
 		int currentBest = -1000;
 		int bestX = -1;
 		int bestY = -1;
@@ -345,6 +347,7 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 			}
 		}
 		setGrid(bestX, bestY, 2);
+		}
 	}
 
     public int nearbyPlayersPoints(int[][] board){
@@ -590,13 +593,27 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 	for (int i = 0; i < boardSize.x; i++) {
 	    for (int j = 0; j < boardSize.y; j++) {
 		if(i>0 && i<14 && j>0 && j<14){
+		    if(board[i][j]==2){
 		    score+=20;
+		    }
 		}
 	    }
 	}
 	return score;
     }
-    
+
+    /*public void firstMove(int [][]board){
+	for (int i = 0; i < boardSize.x; i++) {
+	    for (int j = 0; j < boardSize.y; j++) {
+		if(board[i][j] == 1 || board[i][j] == 2){
+		    break;
+		}else{
+		    setGrid(boardSize.x/2,boardSize.y/2,2);
+		}
+	    }
+	    break;
+	}
+	}*/
 	public int evaluateBoard(int[][] board) {
 	    int result=0;
 	    int win = CheckWins.checkForWin(grid, playStandard);
@@ -610,7 +627,7 @@ public class GomokuSinglePlayer extends JPanel implements MouseListener, MouseMo
 		}*/
 	    int nearbyPoints = nearbyPlayersPoints(board);
 	    int middlePoints = middlePoints(board);
-	    result+= (nearbyPoints + middlePoints);
+	    result+= (nearbyPoints + middlePoints*2);
 	    return result;
 	}
 
