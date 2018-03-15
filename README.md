@@ -32,3 +32,14 @@ Potential Issues: Remove some interdependecies between classes, for instance bet
 Fix the clicking so that it requires only one click to place a stone. (Most of the time I have to click twice to confirm a stone.)
 Add a layout manager to Gomoku.java so that the UI is more flexible.
 
+W18 Final Remarks:
+
+The game now has two modes, two-player and single-player. Both of them are standard Gomoku so you can only win with exactly five tiles in a row, which is a change from how we recieved it. The game is now played on a 15 by 15 board. The game is now visually clean now. The two-player mode has an undo button that goes back one move and also a feature that highlights the tiles which the mouse is hovering over with respect to whose turn it is. Different panels such as the menu and instruction panel have different classes as well as the checkWin code and listener classes. The game is set up and played by Gomoku.java and GomokuSinglePlayer.java.
+
+Possible new features: Right now, there is only standard Gomoku implemented. The free style version allows for a player to win with more than five tiles in a row. There are other house rules that can be found online that could be implemented. Different difficulty levels could be implemented in the single player mode, which could range from a computer plays a random move to creating a more complex AI.
+
+Potential bugs: Certain values and texts are hard-coded so everything won't fit in the window if you resize it to be smaller. The layout of different panels could be changed so that resizing the window won't mess up the interface. 
+
+Opportunities for refactoring: Now, there is lots of duplicate code in Gomoku.java and GomokuSinglePlayer.java. Some of the code in those two classes could be refactored into a parent class and make those two subclasses.
+
+It is really important to take time to understand each class and how they are connected. 
